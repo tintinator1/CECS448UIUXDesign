@@ -24,7 +24,11 @@ This is a React + Vite front-end project for our CECS 448 UI/UX final project. T
 
 ### Project Structure
 src/
+
     pages/ are where all the pages live
+
     components/ are where the reusable components live
+
     styles/ are the css for the pages
+    
     App.jsx/ the App layout
