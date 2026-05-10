@@ -19,12 +19,12 @@ function Login() {
         <form className="auth-form" onSubmit={handleLogin}>
           <div className="auth-field">
             <label htmlFor="email">Email</label>
-            <input id="email" type="email" name="email" />
+            <input id="email" type="email" name="email" required/>
           </div>
 
           <div className="auth-field">
             <label htmlFor="password">Password</label>
-            <input id="password" type="password" name="password" />
+            <input id="password" type="password" name="password" required/>
           </div>
 
           <div className="auth-links">
