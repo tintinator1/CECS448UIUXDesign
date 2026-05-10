@@ -6,7 +6,8 @@ function Signup() {
 
     const handleSignup = (e) => {
         e.preventDefault();
-        navigate("/dashboard");
+        // New users go through onboarding
+        navigate("/onboarding");
     };
     
     return (
