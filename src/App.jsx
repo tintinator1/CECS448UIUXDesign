@@ -6,7 +6,7 @@ import Dashboard from "./pages/Dashboard";
 import Onboarding from "./pages/Onboarding";
 import Tutorial from "./pages/Tutorial";
 
-// import Help from "./pages/Help";
+import Help from "./pages/Help";
 import DegreePathway from "./pages/DegreePathway";
 import Calendar from "./pages/Calendar";
 import SemesterPlanning from "./pages/SemesterPlanning";
@@ -28,7 +28,7 @@ function App() {
           <Route path="/degree-pathway" element={<DegreePathway />} />
           <Route path="/semester-planning" element={<SemesterPlanning />} />
           <Route path="/calendar" element={<Calendar />} />
-          {/*<Route path="/help" element={<Help />} />*/}
+          <Route path="/help" element={<Help />} />
         </Routes>
       </main>
     </div>

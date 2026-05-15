@@ -19,7 +19,7 @@ const navItems = [
     filledIcon: <IoCalendarClear />,
   },
   {
-    path: "/resources",
+    path: "/help",
     outlineIcon: <IoLinkOutline />,
     filledIcon: <IoLink />,
   },
