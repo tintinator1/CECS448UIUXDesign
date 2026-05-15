@@ -10,6 +10,7 @@ import Help from "./pages/Help";
 import DegreePathway from "./pages/DegreePathway";
 import Deadlines from "./pages/Deadlines";
 import SemesterPlanning from "./pages/SemesterPlanning";
+import Profile from "./pages/Profile";
 
 import "./App.css";
 
@@ -30,6 +31,7 @@ function App() {
           <Route path="/deadlines" element={<Deadlines />} />
           <Route path="/help" element={<Help />} />
           <Route path="/all-remaining-req" element={<AllRemainingReq />} />
+          <Route path="/profile" element={<Profile />} />
         </Routes>
       </main>
     </div>

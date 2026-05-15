@@ -956,3 +956,98 @@
 .completion-message {
   text-align: center;
 }
+
+/* Profile Page */
+.profile-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: clamp(12px, 3vw, 18px);
+}
+
+.profile-subtitle {
+  margin: clamp(6px, 1.5vw, 8px) 0 0;
+  color: #666;
+  font-size: clamp(13px, 3.2vw, 15px);
+  line-height: 1.4;
+}
+
+.sign-out-button {
+  padding: clamp(8px, 2vw, 10px) clamp(14px, 3.5vw, 18px);
+  border: 2px solid #ef4444;
+  border-radius: 8px;
+  background-color: white;
+  color: #ef4444;
+  font-size: clamp(12px, 3vw, 14px);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.sign-out-button:hover {
+  background-color: #ef4444;
+  color: white;
+}
+
+.sign-out-button:focus {
+  outline: 2px solid #ef4444;
+  outline-offset: 2px;
+}
+
+.profile-user-card {
+  display: flex;
+  align-items: center;
+  gap: clamp(14px, 3.5vw, 18px);
+}
+
+.profile-avatar {
+  width: clamp(52px, 13vw, 64px);
+  height: clamp(52px, 13vw, 64px);
+  border-radius: 50%;
+  background-color: #2563eb;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(22px, 5.5vw, 28px);
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.profile-name {
+  margin: 0;
+  font-size: clamp(18px, 4.5vw, 22px);
+  font-weight: 700;
+}
+
+.profile-email {
+  margin: clamp(4px, 1vw, 6px) 0 0;
+  color: #666;
+  font-size: clamp(13px, 3.2vw, 15px);
+}
+
+.profile-info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: clamp(12px, 3vw, 16px);
+}
+
+.profile-info-label {
+  color: #666;
+  font-size: clamp(13px, 3.2vw, 15px);
+  font-weight: 500;
+}
+
+.profile-info-value {
+  color: #000;
+  font-size: clamp(13px, 3.2vw, 15px);
+  font-weight: 600;
+  text-align: right;
+}
+
+.profile-actions {
+  margin-top: clamp(32px, 8vw, 48px);
+  padding-bottom: clamp(90px, 20vw, 105px);
+}
