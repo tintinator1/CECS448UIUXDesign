@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import BottomNavBar from "../components/Navbar";
 import SemesterSelector from "../components/SemesterSelector";
+import AppButton from "../components/AppButton";
+import BackButton from "../components/BackButton";
 import "../styles/mainpages.css";
 
 const recommendedCourses = {
@@ -111,7 +113,7 @@ export default function SemesterPlanning() {
           <h2 className="section-heading">Completed Courses</h2>
           <div className="completed-course-list">
             {completedCourses.map((course, index) => (
-              <div key={index} className="completed-course-chip">
+              <div key={index} className="course-chip completed">
                 <span className="chip-check">✓</span>
                 <span className="chip-code">{course.code}</span>
               </div>
@@ -124,7 +126,7 @@ export default function SemesterPlanning() {
           <h2 className="section-heading">Currently Taking</h2>
           <div className="completed-course-list">
             {inProgressCourses.map((course, index) => (
-              <div key={index} className="in-progress-course-chip">
+              <div key={index} className="course-chip in-progress">
                 <span className="chip-check">—</span>
                 <span className="chip-code">{course.code}</span>
               </div>
@@ -135,13 +137,13 @@ export default function SemesterPlanning() {
         {/* Recommended Courses */}
         <section className="page-section">
           <h2 className="section-heading">Recommended Next Courses</h2>
-          <div className="course-selection-list">
+          <div className="course-selection-list stack-sm">
             {courses.map((course, index) => {
               const isSelected = selectedCourses.find((c) => c.code === course.code);
               return (
                 <label
                   key={index}
-                  className={`selectable-course ${isSelected ? "selected" : ""}`}
+                  className={`selectable-course content-card ${isSelected ? "selected" : ""}`}
                   htmlFor={`course-${index}`}
                 >
                   <input
@@ -168,17 +170,17 @@ export default function SemesterPlanning() {
           </div>
 
           {!showAddCourse && (
-            <button
+            <AppButton
+              variant="add"
               onClick={() => setShowAddCourse(true)}
-              className="add-course-button"
-              aria-label="Add a custom course"
+              ariaLabel="Add a custom course"
             >
               + Add a course
-            </button>
+            </AppButton>
           )}
 
           {showAddCourse && (
-            <div className="add-course-form">
+            <div className="add-course-form content-card">
               <h3 className="form-heading">Add Custom Course</h3>
               <div className="form-row">
                 <input
@@ -219,24 +221,24 @@ export default function SemesterPlanning() {
                 />
               </div>
               <div className="form-buttons">
-                <button
+                <AppButton
+                  variant="primary"
                   onClick={handleAddCustomCourse}
-                  className="primary-button"
                   disabled={!customCourse.code || !customCourse.name || !customCourse.units}
-                  aria-label="Confirm add course"
+                  ariaLabel="Confirm add course"
                 >
                   Add Course
-                </button>
-                <button
+                </AppButton>
+                <AppButton
+                  variant="secondary"
                   onClick={() => {
                     setShowAddCourse(false);
                     setCustomCourse({ code: "", name: "", units: "" });
                   }}
-                  className="secondary-button"
-                  aria-label="Cancel adding course"
+                  ariaLabel="Cancel adding course"
                 >
                   Cancel
-                </button>
+                </AppButton>
               </div>
             </div>
           )}
@@ -246,7 +248,7 @@ export default function SemesterPlanning() {
         {selectedCourses.length > 0 && (
           <section className="page-section">
             <h2 className="section-heading">Your Plan ({totalUnits} units)</h2>
-            <div className="selected-courses-summary">
+            <div className="stack-sm">
               {selectedCourses.map((course, index) => (
                 <div key={index} className="summary-course-item">
                   <div className="course-info">
@@ -262,22 +264,21 @@ export default function SemesterPlanning() {
 
         {/* Action Buttons */}
         <div className="semester-planning-actions">
-          <button
+          <AppButton
+            variant="primary"
             onClick={handleSavePlan}
-            className="primary-button"
             disabled={selectedCourses.length === 0}
-            aria-label="Save semester plan"
+            ariaLabel="Save semester plan"
           >
             Save Semester Plan
-          </button>
+          </AppButton>
 
-          <button
-            onClick={() => navigate("/degree-pathway")}
-            className="secondary-button"
-            aria-label="Cancel semester planning and return to degree pathway"
+          <BackButton
+            to="/degree-pathway"
+            ariaLabel="Cancel semester planning and return to degree pathway"
           >
             Cancel
-          </button>
+          </BackButton>
         </div>
       </main>
 
@@ -288,7 +289,7 @@ export default function SemesterPlanning() {
             <h2 id="save-modal-title" className="modal-title">
               {validationStep === 3 ? "Semester Plan Saved!" : "Saving Semester Plan..."}
             </h2>
-            <div className="validation-steps">
+            <div className="validation-steps stack-md">
               <div className={`validation-step ${validationStep >= 1 ? "complete" : ""}`}>
                 {validationStep >= 1 ? "✓" : "○"} Validating classes
               </div>
@@ -300,14 +301,14 @@ export default function SemesterPlanning() {
               </div>
             </div>
             {validationStep === 3 && (
-              <button
+              <AppButton
+                variant="primary"
+                className="modal-done-button"
                 onClick={handleModalClose}
-                className="primary-button"
-                style={{ marginTop: "24px" }}
-                aria-label="Close and return to degree pathway"
+                ariaLabel="Close and return to degree pathway"
               >
                 Done
-              </button>
+              </AppButton>
             )}
           </div>
         </div>

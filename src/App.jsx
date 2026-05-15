@@ -5,11 +5,12 @@ import Forgotpw from "./pages/Forgotpw";
 import Dashboard from "./pages/Dashboard";
 import Onboarding from "./pages/Onboarding";
 import Tutorial from "./pages/Tutorial";
-
-// import Help from "./pages/Help";
+import AllRemainingReq from "./pages/AllRemainingReq";
+import Help from "./pages/Help";
 import DegreePathway from "./pages/DegreePathway";
-import Calendar from "./pages/Calendar";
+import Deadlines from "./pages/Deadlines";
 import SemesterPlanning from "./pages/SemesterPlanning";
+import Profile from "./pages/Profile";
 
 import "./App.css";
 
@@ -27,8 +28,10 @@ function App() {
           <Route path="/tutorial" element={<Tutorial/>}/>
           <Route path="/degree-pathway" element={<DegreePathway />} />
           <Route path="/semester-planning" element={<SemesterPlanning />} />
-          <Route path="/calendar" element={<Calendar />} />
-          {/*<Route path="/help" element={<Help />} />*/}
+          <Route path="/deadlines" element={<Deadlines />} />
+          <Route path="/help" element={<Help />} />
+          <Route path="/all-remaining-req" element={<AllRemainingReq />} />
+          <Route path="/profile" element={<Profile />} />
         </Routes>
       </main>
     </div>
