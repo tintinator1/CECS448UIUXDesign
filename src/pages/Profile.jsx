@@ -1,10 +1,13 @@
 import { useNavigate } from "react-router-dom";
 import BottomNavBar from "../components/Navbar";
 import AppButton from "../components/AppButton";
+import { useState } from "react";
 import "../styles/mainpages.css";
 
 export default function Profile() {
   const navigate = useNavigate();
+  const [highContrast, setHighContrast] = useState(false);
+  const [largerText, setLargerText] = useState(false);
 
   const user = {
     name: "Tin Nguyen",
@@ -109,6 +112,36 @@ export default function Profile() {
             Change Password
           </AppButton>
         </div>
+
+        <section className="page-section profile-preferences-section">
+          <h2 className="section-heading">App Preferences</h2>
+
+          <div className="stack-sm">
+            <label className="profile-info-row content-card profile-checkbox-row">
+              <span className="profile-info-label">High Contrast Mode</span>
+
+              <input
+                type="checkbox"
+                checked={highContrast}
+                onChange={() => setHighContrast(!highContrast)}
+                className="profile-checkbox"
+                aria-label="Toggle high contrast mode"
+              />
+            </label>
+
+            <label className="profile-info-row content-card profile-checkbox-row">
+              <span className="profile-info-label">Larger Text</span>
+
+              <input
+                type="checkbox"
+                checked={largerText}
+                onChange={() => setLargerText(!largerText)}
+                className="profile-checkbox"
+                aria-label="Toggle larger text"
+              />
+            </label>
+          </div>
+        </section>
       </main>
 
       <BottomNavBar />

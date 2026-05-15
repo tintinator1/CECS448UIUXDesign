@@ -13,7 +13,7 @@ export default function Dashboard() {
         <h1 className="page-title">Dashboard</h1>
 
         <section className="progress-section">
-          <h2 className="section-heading section-heading-light">
+          <h2 className="section-heading">
             Degree Progress
           </h2>
 

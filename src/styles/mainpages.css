@@ -1051,3 +1051,51 @@
   margin-top: clamp(32px, 8vw, 48px);
   padding-bottom: clamp(90px, 20vw, 105px);
 }
+
+.profile-checkbox-row {
+  cursor: pointer;
+}
+
+.profile-checkbox {
+  width: clamp(18px, 4.8vw, 22px);
+  height: clamp(18px, 4.8vw, 22px);
+  cursor: pointer;
+  accent-color: #2563eb;
+  flex-shrink: 0;
+}
+
+.profile-preferences-section {
+  margin-top: 24px;
+}
+
+
+.disabled-button-tooltip-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.disabled-button-tooltip {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 10px);
+  transform: translateX(-50%);
+  width: max-content;
+  max-width: min(320px, 85vw);
+  padding: 8px 12px;
+  border-radius: 8px;
+  background-color: #111827;
+  color: white;
+  font-size: clamp(12px, 3vw, 14px);
+  font-weight: 500;
+  line-height: 1.4;
+  text-align: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  z-index: 10;
+}
+
+.disabled-button-tooltip-wrapper:hover .disabled-button-tooltip,
+.disabled-button-tooltip-wrapper:focus-within .disabled-button-tooltip {
+  opacity: 1;
+}

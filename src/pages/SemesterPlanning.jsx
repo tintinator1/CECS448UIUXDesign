@@ -264,14 +264,22 @@ export default function SemesterPlanning() {
 
         {/* Action Buttons */}
         <div className="semester-planning-actions">
-          <AppButton
-            variant="primary"
-            onClick={handleSavePlan}
-            disabled={selectedCourses.length === 0}
-            ariaLabel="Save semester plan"
-          >
-            Save Semester Plan
-          </AppButton>
+          <div className="disabled-button-tooltip-wrapper">
+            <AppButton
+              variant="primary"
+              onClick={handleSavePlan}
+              disabled={selectedCourses.length === 0}
+              ariaLabel="Save semester plan"
+            >
+              Save Semester Plan
+            </AppButton>
+
+            {selectedCourses.length === 0 && (
+              <span className="disabled-button-tooltip">
+                Please select at least one course before saving your semester plan.
+              </span>
+            )}
+          </div>
 
           <BackButton
             to="/degree-pathway"
