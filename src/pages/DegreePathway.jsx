@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import BottomNavBar from "../components/Navbar";
+import SemesterSelector from "../components/SemesterSelector";
 import "../styles/mainpages.css";
 
 const sampleCourses = {
@@ -45,7 +46,7 @@ const sampleCourses = {
 export default function DegreePathway() {
   const navigate = useNavigate();
   const [selectedMajor, setSelectedMajor] = useState("");
-  const [semester, setSemester] = useState("Spring 2026");
+  const [semester, setSemester] = useState("Fall 2026");
   const [showChangeMajor, setShowChangeMajor] = useState(false);
 
   useEffect(() => {
@@ -73,11 +74,11 @@ export default function DegreePathway() {
   return (
     <div className="page">
       <main className="page-content">
-        <div className="section-row" style={{ marginBottom: "clamp(24px, 6vw, 32px)" }}>
+        <div className="section-row" style={{ marginBottom: "clamp(18px, 5vw, 26px)" }}>
           <div>
             <h1 className="page-title">Degree Pathway</h1>
             <p className="degree-major" role="status" aria-live="polite">
-              {selectedMajor} • {semester}
+              {selectedMajor}
             </p>
           </div>
           <button
@@ -88,6 +89,8 @@ export default function DegreePathway() {
             Change Major
           </button>
         </div>
+
+        <SemesterSelector value={semester} onChange={setSemester} />
 
         {/* Progress Summary */}
         <section className="degree-summary">

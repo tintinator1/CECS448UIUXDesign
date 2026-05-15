@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import BottomNavBar from "../components/Navbar";
+import SemesterSelector from "../components/SemesterSelector";
 import "../styles/mainpages.css";
 
 const recommendedCourses = {
@@ -101,22 +102,8 @@ export default function SemesterPlanning() {
       <main className="page-content">
         <h1 className="page-title">Semester Planning</h1>
 
-        <section className="page-section" style={{ marginTop: "24px" }}>
-          <label htmlFor="semester-select" className="section-heading">
-            Select Semester
-          </label>
-          <select
-            id="semester-select"
-            value={selectedSemester}
-            onChange={(e) => setSelectedSemester(e.target.value)}
-            className="semester-select"
-            aria-label="Select semester to plan"
-          >
-            <option>Fall 2026</option>
-            <option>Spring 2027</option>
-            <option>Fall 2027</option>
-            <option>Spring 2028</option>
-          </select>
+        <section className="page-section semester-planning-selector-section">
+          <SemesterSelector value={selectedSemester} onChange={setSelectedSemester} />
         </section>
 
         {/* Completed Courses */}
@@ -264,7 +251,7 @@ export default function SemesterPlanning() {
                 <div key={index} className="summary-course-item">
                   <div className="course-info">
                     <span className="course-code">{course.code}</span>
-                    <span className="course-name">{course.name}</span>
+                    <span className="course-name"> {course.name}</span>
                   </div>
                   <span className="course-units">{course.units} units</span>
                 </div>
@@ -273,8 +260,8 @@ export default function SemesterPlanning() {
           </section>
         )}
 
-        {/* Save Button */}
-        <div className="sticky-action" style={{ paddingBottom: "clamp(90px, 20vw, 105px)" }}>
+        {/* Action Buttons */}
+        <div className="semester-planning-actions">
           <button
             onClick={handleSavePlan}
             className="primary-button"
@@ -282,6 +269,14 @@ export default function SemesterPlanning() {
             aria-label="Save semester plan"
           >
             Save Semester Plan
+          </button>
+
+          <button
+            onClick={() => navigate("/degree-pathway")}
+            className="secondary-button"
+            aria-label="Cancel semester planning and return to degree pathway"
+          >
+            Cancel
           </button>
         </div>
       </main>
