@@ -6,41 +6,109 @@ import AppButton from "../components/AppButton";
 import BackButton from "../components/BackButton";
 import "../styles/mainpages.css";
 
-const recommendedCourses = {
-  "Computer Science": [
-    { code: "CECS 277", name: "Object-Oriented Programming", units: 3, prerequisite: "CECS 274" },
-    { code: "CECS 323", name: "Database Fundamentals", units: 3, prerequisite: "CECS 228" },
-    { code: "PHYS 151", name: "Physics I", units: 3, prerequisite: "MATH 122" },
-  ],
-  "Undecided": [
-    { code: "PHIL 100", name: "Introduction to Philosophy", units: 3, prerequisite: null },
-    { code: "COMM 100", name: "Public Speaking", units: 3, prerequisite: null },
-    { code: "BIOL 100", name: "Introduction to Biology", units: 3, prerequisite: null },
-  ],
+const recommendedCoursesBySemester = {
+  "Computer Science": {
+    "Fall 2026": [
+      { code: "CECS 277", name: "Object-Oriented Programming", units: 3, prerequisite: "CECS 274" },
+      { code: "CECS 323", name: "Database Fundamentals", units: 3, prerequisite: "CECS 228" },
+      { code: "PHYS 151", name: "Physics I", units: 3, prerequisite: "MATH 122" },
+    ],
+    "Spring 2027": [
+      { code: "CECS 326", name: "Operating Systems", units: 3, prerequisite: "CECS 277" },
+      { code: "CECS 328", name: "Algorithms", units: 3, prerequisite: "CECS 228" },
+      { code: "CECS 343", name: "Software Engineering", units: 3, prerequisite: "CECS 277" },
+    ],
+    "Fall 2027": [
+      { code: "CECS 378", name: "Introduction to Computer Security", units: 3, prerequisite: "CECS 326" },
+      { code: "CECS 448", name: "User Interface Design", units: 3, prerequisite: "CECS 343" },
+      { code: "CECS 453", name: "Mobile Application Development", units: 3, prerequisite: "CECS 277" },
+    ],
+    "Spring 2028": [
+      { code: "CECS 491A", name: "Senior Project I", units: 3, prerequisite: "CECS 343" },
+      { code: "CECS 475", name: "Software Development with Frameworks", units: 3, prerequisite: "CECS 343" },
+      { code: "CECS 478", name: "Computer Security Principles", units: 3, prerequisite: "CECS 326" },
+    ],
+  },
+
+  "Undecided": {
+    "Fall 2026": [
+      { code: "PHIL 100", name: "Introduction to Philosophy", units: 3, prerequisite: null },
+      { code: "COMM 100", name: "Public Speaking", units: 3, prerequisite: null },
+      { code: "BIOL 100", name: "Introduction to Biology", units: 3, prerequisite: null },
+    ],
+    "Spring 2027": [
+      { code: "ENGL 200", name: "Critical Reading and Writing", units: 3, prerequisite: "ENGL 100" },
+      { code: "HIST 101", name: "World History", units: 3, prerequisite: null },
+      { code: "ART 110", name: "Introduction to Art", units: 3, prerequisite: null },
+    ],
+    "Fall 2027": [
+      { code: "PSYC 100", name: "Introduction to Psychology", units: 3, prerequisite: null },
+      { code: "SOC 100", name: "Introduction to Sociology", units: 3, prerequisite: null },
+      { code: "MATH 103", name: "College Algebra", units: 3, prerequisite: null },
+    ],
+    "Spring 2028": [
+      { code: "GEOG 100", name: "Introduction to Geography", units: 3, prerequisite: null },
+      { code: "MUS 100", name: "Music Appreciation", units: 3, prerequisite: null },
+      { code: "KIN 101", name: "Lifetime Fitness", units: 3, prerequisite: null },
+    ],
+  },
+};
+
+const getSavedSemesterPlan = (semester) => {
+  try {
+    return JSON.parse(localStorage.getItem(`semesterPlan_${semester}`)) || [];
+  } catch {
+    return [];
+  }
 };
 
 export default function SemesterPlanning() {
   const navigate = useNavigate();
   const location = useLocation();
-  const [selectedSemester, setSelectedSemester] = useState("Fall 2026");
+  const [selectedSemester, setSelectedSemester] = useState(
+    location.state?.selectedSemester || "Fall 2026"
+  );
   const [selectedCourses, setSelectedCourses] = useState([]);
   const [customCourse, setCustomCourse] = useState({ code: "", name: "", units: "" });
   const [showAddCourse, setShowAddCourse] = useState(false);
   const [showSaveModal, setShowSaveModal] = useState(false);
   const [validationStep, setValidationStep] = useState(0);
-  const [major, setMajor] = useState("Undecided");
+  const [major, setMajor] = useState("Computer Science");
 
   useEffect(() => {
-    const userMajor = location.state?.changedMajor || localStorage.getItem("userMajor") || "Computer Science";
-    setMajor(userMajor);
+    const userMajor =
+      location.state?.changedMajor ||
+      localStorage.getItem("userMajor") ||
+      "Computer Science";
 
-    if (location.state?.autoAddRecommended) {
-      const autoCourses = recommendedCourses[userMajor] || recommendedCourses["Undecided"];
-      setSelectedCourses(autoCourses);
-    }
+    setMajor(userMajor);
   }, [location.state]);
 
-  const courses = recommendedCourses[major] || recommendedCourses["Undecided"];
+  useEffect(() => {
+    const savedPlan = getSavedSemesterPlan(selectedSemester);
+    const shouldAutoAddRecommended =
+      location.state?.autoAddRecommended &&
+      (location.state?.selectedSemester || "Fall 2026") === selectedSemester &&
+      savedPlan.length === 0;
+
+    if (shouldAutoAddRecommended) {
+      const autoCourses =
+        recommendedCoursesBySemester[location.state?.changedMajor || major]?.[selectedSemester] ||
+        recommendedCoursesBySemester["Undecided"]?.[selectedSemester] ||
+        [];
+
+      setSelectedCourses(autoCourses);
+      return;
+    }
+
+    setSelectedCourses(savedPlan);
+  }, [selectedSemester, major, location.state]);
+
+  
+  const courses =
+    recommendedCoursesBySemester[major]?.[selectedSemester] ||
+    recommendedCoursesBySemester["Undecided"]?.[selectedSemester] ||
+    [];
 
   const handleCourseToggle = (course) => {
     setSelectedCourses((prev) => {
@@ -85,7 +153,7 @@ export default function SemesterPlanning() {
   const handleModalClose = () => {
     setShowSaveModal(false);
     setValidationStep(0);
-    // Store the plan
+
     localStorage.setItem(
       `semesterPlan_${selectedSemester}`,
       JSON.stringify(selectedCourses)
@@ -102,10 +170,15 @@ export default function SemesterPlanning() {
     { code: "CECS 225", name: "Digital Logic" },
   ];
 
-  const inProgressCourses = [
-    { code: "CECS 228", name: "Discrete Mathematics" },
-    { code: "CECS 274", name: "Data Structures" },
-  ];
+  const inProgressCourses =
+    selectedSemester === "Fall 2026"
+      ? [
+          { code: "CECS 228", name: "Discrete Mathematics" },
+          { code: "CECS 274", name: "Data Structures" },
+        ]
+      : [];
+
+  const hasNoRecommendedCourses = courses.length === 0;
 
   return (
     <div className="page">
@@ -121,6 +194,15 @@ export default function SemesterPlanning() {
             <p className="tips-text">
               Recommended courses for your new {major} pathway were automatically added.
               Review the plan below before saving.
+            </p>
+          </section>
+        )}
+
+        {selectedSemester !== "Fall 2026" && selectedCourses.length === 0 && (
+          <section className="major-change-notice content-card">
+            <p className="tips-text">
+              No course plan has been saved for {selectedSemester} yet. Add courses below,
+              then save the semester plan so it appears in Degree Pathway.
             </p>
           </section>
         )}
@@ -141,50 +223,70 @@ export default function SemesterPlanning() {
         {/* In Progress Courses */}
         <section className="page-section">
           <h2 className="section-heading">Currently Taking</h2>
-          <div className="completed-course-list">
-            {inProgressCourses.map((course, index) => (
-              <div key={index} className="course-chip in-progress">
-                <span className="chip-check">—</span>
-                <span className="chip-code">{course.code}</span>
-              </div>
-            ))}
-          </div>
+
+          {inProgressCourses.length > 0 ? (
+            <div className="completed-course-list">
+              {inProgressCourses.map((course, index) => (
+                <div key={index} className="course-chip in-progress">
+                  <span className="chip-check">—</span>
+                  <span className="chip-code">{course.code}</span>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="content-card">
+              <p className="section-text">
+                No courses are currently listed for {selectedSemester}. Start planning this
+                semester by adding courses below.
+              </p>
+            </div>
+          )}
         </section>
 
         {/* Recommended Courses */}
         <section className="page-section">
           <h2 className="section-heading">Recommended Next Courses</h2>
-          <div className="course-selection-list stack-sm">
-            {courses.map((course, index) => {
-              const isSelected = selectedCourses.find((c) => c.code === course.code);
-              return (
-                <label
-                  key={index}
-                  className={`selectable-course content-card ${isSelected ? "selected" : ""}`}
-                  htmlFor={`course-${index}`}
-                >
-                  <input
-                    type="checkbox"
-                    id={`course-${index}`}
-                    checked={!!isSelected}
-                    onChange={() => handleCourseToggle(course)}
-                    className="course-checkbox"
-                    aria-label={`Select ${course.code} - ${course.name}`}
-                  />
-                  <div className="course-info">
-                    <div className="course-code">{course.code}</div>
-                    <div className="course-name">{course.name}</div>
-                    {course.prerequisite && (
-                      <div className="course-prerequisite">
-                        Prerequisite: {course.prerequisite}
-                      </div>
-                    )}
-                  </div>
-                  <div className="course-units">{course.units} units</div>
-                </label>
-              );
-            })}
-          </div>
+
+          {hasNoRecommendedCourses ? (
+            <div className="content-card">
+              <p className="section-text">
+                No recommended courses are available for {selectedSemester} yet. Use
+                “Add a course” to build and save a plan for this semester.
+              </p>
+            </div>
+          ) : (
+            <div className="course-selection-list stack-sm">
+              {courses.map((course, index) => {
+                const isSelected = selectedCourses.find((c) => c.code === course.code);
+                return (
+                  <label
+                    key={index}
+                    className={`selectable-course content-card ${isSelected ? "selected" : ""}`}
+                    htmlFor={`course-${index}`}
+                  >
+                    <input
+                      type="checkbox"
+                      id={`course-${index}`}
+                      checked={!!isSelected}
+                      onChange={() => handleCourseToggle(course)}
+                      className="course-checkbox"
+                      aria-label={`Select ${course.code} - ${course.name}`}
+                    />
+                    <div className="course-info">
+                      <div className="course-code">{course.code}</div>
+                      <div className="course-name">{course.name}</div>
+                      {course.prerequisite && (
+                        <div className="course-prerequisite">
+                          Prerequisite: {course.prerequisite}
+                        </div>
+                      )}
+                    </div>
+                    <div className="course-units">{course.units} units</div>
+                  </label>
+                );
+              })}
+            </div>
+          )}
 
           {!showAddCourse && (
             <AppButton

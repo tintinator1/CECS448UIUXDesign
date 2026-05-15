@@ -58,11 +58,20 @@ const majorOptions = [
   "Nursing",
 ];
 
+const getSavedSemesterPlan = (semester) => {
+  try {
+    return JSON.parse(localStorage.getItem(`semesterPlan_${semester}`)) || [];
+  } catch {
+    return [];
+  }
+};
+
 export default function DegreePathway() {
   const navigate = useNavigate();
   const [majorValidationStep, setMajorValidationStep] = useState(0);
   const [selectedMajor, setSelectedMajor] = useState("");
   const [semester, setSemester] = useState("Fall 2026");
+  const [savedSemesterCourses, setSavedSemesterCourses] = useState([]);
   const [showChangeMajor, setShowChangeMajor] = useState(false);
   const [pendingMajor, setPendingMajor] = useState("Computer Science");
   const [majorChangeStep, setMajorChangeStep] = useState("select");
@@ -74,24 +83,40 @@ export default function DegreePathway() {
   }, []);
 
   useEffect(() => {
-  if (!showChangeMajor || majorChangeStep !== "comparing") return;
+    setSavedSemesterCourses(getSavedSemesterPlan(semester));
+  }, [semester]);
 
-  setMajorValidationStep(0);
+  useEffect(() => {
+    if (!showChangeMajor || majorChangeStep !== "comparing") return;
 
-  const stepOne = setTimeout(() => setMajorValidationStep(1), 1000);
-  const stepTwo = setTimeout(() => setMajorValidationStep(2), 2000);
-  const stepThree = setTimeout(() => setMajorValidationStep(3), 3000);
-  const complete = setTimeout(() => setMajorChangeStep("complete"), 3600);
+    setMajorValidationStep(0);
 
-  return () => {
-    clearTimeout(stepOne);
-    clearTimeout(stepTwo);
-    clearTimeout(stepThree);
-    clearTimeout(complete);
-  };
-}, [showChangeMajor, majorChangeStep]);
+    const stepOne = setTimeout(() => setMajorValidationStep(1), 1000);
+    const stepTwo = setTimeout(() => setMajorValidationStep(2), 2000);
+    const stepThree = setTimeout(() => setMajorValidationStep(3), 3000);
+    const complete = setTimeout(() => setMajorChangeStep("complete"), 3600);
+
+    return () => {
+      clearTimeout(stepOne);
+      clearTimeout(stepTwo);
+      clearTimeout(stepThree);
+      clearTimeout(complete);
+    };
+  }, [showChangeMajor, majorChangeStep]);
 
   const courses = sampleCourses[selectedMajor] || sampleCourses["Undecided"];
+  const displayedSemesterCourses =
+    savedSemesterCourses.length > 0
+      ? savedSemesterCourses
+      : semester === "Fall 2026"
+        ? courses.inProgress
+        : [];
+
+  const hasSavedPlan =
+    savedSemesterCourses.length > 0 ||
+    (semester === "Fall 2026" && courses.inProgress.length > 0);
+
+  const needsPlanning = displayedSemesterCourses.length === 0;
 
   const openChangeMajorModal = () => {
     const currentMajor = selectedMajor || localStorage.getItem("userMajor") || "Computer Science";
@@ -122,18 +147,23 @@ export default function DegreePathway() {
     navigate("/semester-planning", {
       state: {
         changedMajor: pendingMajor,
+        selectedSemester: semester,
         autoAddRecommended: true,
       },
     });
   };
 
   const handleStartPlanning = () => {
-    navigate("/semester-planning");
+    navigate("/semester-planning", {
+      state: {
+        selectedSemester: semester,
+      },
+    });
   };
 
   const completedUnits = courses.completed.reduce((sum, course) => sum + course.units, 0);
-  const inProgressUnits = courses.inProgress.reduce((sum, course) => sum + course.units, 0);
-  const totalUnits = 120; // Typical bachelor's degree
+  const inProgressUnits = displayedSemesterCourses.reduce((sum, course) => sum + course.units, 0);
+  const totalUnits = 120;
   const progressPercent = Math.round((completedUnits / totalUnits) * 100);
 
   return (
@@ -164,7 +194,9 @@ export default function DegreePathway() {
             <span className="summary-value">{completedUnits}</span>
           </div>
           <div className="summary-item">
-            <span className="summary-label">In Progress</span>
+            <span className="summary-label">
+              {semester === "Fall 2026" ? "In Progress" : "Planned"}
+            </span>
             <span className="summary-value">{inProgressUnits}</span>
           </div>
           <div className="summary-item">
@@ -194,21 +226,35 @@ export default function DegreePathway() {
           </div>
         </section>
 
-        {/* In Progress Courses */}
+        {/* Semester Courses */}
         <section className="page-section">
-          <h2 className="section-heading">Currently Taking ({semester})</h2>
-          <div className="stack-sm">
-            {courses.inProgress.map((course, index) => (
-              <div key={index} className="course-item content-card content-card-hover">
-                <div className="course-check in-progress">—</div>
-                <div className="course-info">
-                  <div className="course-code">{course.code}</div>
-                  <div className="course-name">{course.name}</div>
+          <h2 className="section-heading">
+            Planned Courses For {semester}
+          </h2>
+
+          {displayedSemesterCourses.length > 0 ? (
+            <div className="stack-sm">
+              {displayedSemesterCourses.map((course, index) => (
+                <div key={index} className="course-item content-card content-card-hover">
+                  <div className="course-check in-progress">
+                    —
+                  </div>
+                  <div className="course-info">
+                    <div className="course-code">{course.code}</div>
+                    <div className="course-name">{course.name}</div>
+                  </div>
+                  <div className="course-units">{course.units} units</div>
                 </div>
-                <div className="course-units">{course.units} units</div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          ) : (
+            <div className="content-card">
+              <p className="section-text">
+                No courses are planned for {semester} yet. Start semester planning to create
+                and save a course plan for this semester.
+              </p>
+            </div>
+          )}
         </section>
 
         {/* Remaining Courses */}
@@ -240,9 +286,13 @@ export default function DegreePathway() {
           <AppButton
             variant="primary"
             onClick={handleStartPlanning}
-            ariaLabel="Start planning your semester"
+            ariaLabel={
+              needsPlanning
+                ? `Start planning ${semester}`
+                : "Start planning your semester"
+            }
           >
-            Start Semester Planning
+            {hasSavedPlan ? "Edit Semester Plan" : "Start Semester Planning"}
           </AppButton>
         </div>
       </main>
