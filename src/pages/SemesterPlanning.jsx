@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import BottomNavBar from "../components/Navbar";
 import SemesterSelector from "../components/SemesterSelector";
+import AppButton from "../components/AppButton";
+import BackButton from "../components/BackButton";
 import "../styles/mainpages.css";
 
 const recommendedCourses = {
@@ -168,13 +170,13 @@ export default function SemesterPlanning() {
           </div>
 
           {!showAddCourse && (
-            <button
+            <AppButton
+              variant="add"
               onClick={() => setShowAddCourse(true)}
-              className="add-course-button"
-              aria-label="Add a custom course"
+              ariaLabel="Add a custom course"
             >
               + Add a course
-            </button>
+            </AppButton>
           )}
 
           {showAddCourse && (
@@ -219,24 +221,24 @@ export default function SemesterPlanning() {
                 />
               </div>
               <div className="form-buttons">
-                <button
+                <AppButton
+                  variant="primary"
                   onClick={handleAddCustomCourse}
-                  className="primary-button"
                   disabled={!customCourse.code || !customCourse.name || !customCourse.units}
-                  aria-label="Confirm add course"
+                  ariaLabel="Confirm add course"
                 >
                   Add Course
-                </button>
-                <button
+                </AppButton>
+                <AppButton
+                  variant="secondary"
                   onClick={() => {
                     setShowAddCourse(false);
                     setCustomCourse({ code: "", name: "", units: "" });
                   }}
-                  className="secondary-button"
-                  aria-label="Cancel adding course"
+                  ariaLabel="Cancel adding course"
                 >
                   Cancel
-                </button>
+                </AppButton>
               </div>
             </div>
           )}
@@ -262,22 +264,21 @@ export default function SemesterPlanning() {
 
         {/* Action Buttons */}
         <div className="semester-planning-actions">
-          <button
+          <AppButton
+            variant="primary"
             onClick={handleSavePlan}
-            className="primary-button"
             disabled={selectedCourses.length === 0}
-            aria-label="Save semester plan"
+            ariaLabel="Save semester plan"
           >
             Save Semester Plan
-          </button>
+          </AppButton>
 
-          <button
-            onClick={() => navigate("/degree-pathway")}
-            className="secondary-button"
-            aria-label="Cancel semester planning and return to degree pathway"
+          <BackButton
+            to="/degree-pathway"
+            ariaLabel="Cancel semester planning and return to degree pathway"
           >
             Cancel
-          </button>
+          </BackButton>
         </div>
       </main>
 
@@ -300,14 +301,14 @@ export default function SemesterPlanning() {
               </div>
             </div>
             {validationStep === 3 && (
-              <button
+              <AppButton
+                variant="primary"
+                className="modal-done-button"
                 onClick={handleModalClose}
-                className="primary-button"
-                style={{ marginTop: "24px" }}
-                aria-label="Close and return to degree pathway"
+                ariaLabel="Close and return to degree pathway"
               >
                 Done
-              </button>
+              </AppButton>
             )}
           </div>
         </div>

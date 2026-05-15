@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import BottomNavBar from "../components/Navbar";
+import AppButton from "../components/AppButton";
 import SemesterSelector from "../components/SemesterSelector";
 import "../styles/mainpages.css";
 
@@ -172,13 +173,13 @@ export default function DegreePathway() {
 
         {/* Action Button */}
         <div className="sticky-action">
-          <button
+          <AppButton
+            variant="primary"
             onClick={handleStartPlanning}
-            className="primary-button"
-            aria-label="Start planning your semester"
+            ariaLabel="Start planning your semester"
           >
             Start Semester Planning
-          </button>
+          </AppButton>
         </div>
       </main>
 
@@ -202,13 +203,13 @@ export default function DegreePathway() {
                 </button>
               ))}
             </div>
-            <button
+            <AppButton
+              variant="secondary"
               onClick={() => setShowChangeMajor(false)}
-              className="secondary-button"
-              aria-label="Cancel changing major"
+              ariaLabel="Cancel changing major"
             >
               Cancel
-            </button>
+            </AppButton>
           </div>
         </div>
       )}

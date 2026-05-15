@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import AppButton from "../components/AppButton";
 import { IoHomeSharp, IoSchool, IoCalendarClear, IoLink, IoPersonSharp } from "react-icons/io5";
 import "../styles/mainpages.css";
 
@@ -95,17 +96,26 @@ export default function Tutorial() {
           </div>
 
           <div className="tutorial-buttons">
-            <button
+            <AppButton
+              variant="secondary"
               onClick={handleBack}
               disabled={currentStep === 0}
-              className="secondary-button"
-              aria-label="Go to previous tutorial step"
+              ariaLabel="Go to previous tutorial step"
             >
               Back
-            </button>
-            <button onClick={handleNext} className="primary-button" aria-label={currentStep === tutorialSteps.length - 1 ? "Finish tutorial" : "Go to next tutorial step"}>
+            </AppButton>
+            
+            <AppButton
+              variant="primary"
+              onClick={handleNext}
+              ariaLabel={
+                currentStep === tutorialSteps.length - 1
+                  ? "Finish tutorial"
+                  : "Go to next tutorial step"
+              }
+            >
               {currentStep === tutorialSteps.length - 1 ? "Get Started" : "Next"}
-            </button>
+            </AppButton>
           </div>
         </div>
       </main>

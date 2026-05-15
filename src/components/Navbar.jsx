@@ -14,7 +14,7 @@ const navItems = [
     filledIcon: <IoSchool />,
   },
   {
-    path: "/calendar",
+    path: "/deadlines",
     outlineIcon: <IoCalendarClearOutline />,
     filledIcon: <IoCalendarClear />,
   },

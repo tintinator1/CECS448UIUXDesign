@@ -1,5 +1,5 @@
-import { useNavigate } from "react-router-dom";
 import BottomNavBar from "../components/Navbar";
+import BackButton from "../components/BackButton";
 import "../styles/mainpages.css";
 
 const remainingCourses = [
@@ -16,7 +16,6 @@ const remainingCourses = [
 ];
 
 export default function AllRemainingReq() {
-  const navigate = useNavigate();
 
   return (
     <div className="page">
@@ -43,12 +42,9 @@ export default function AllRemainingReq() {
         </section>
 
         <div className="page-action">
-          <button
-            onClick={() => navigate("/degree-pathway")}
-            className="secondary-button"
-          >
+          <BackButton to="/degree-pathway" ariaLabel="Go back to degree pathway">
             Back
-          </button>
+          </BackButton>
         </div>
       </main>
 

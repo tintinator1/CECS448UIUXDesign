@@ -911,3 +911,48 @@
   margin-bottom: clamp(18px, 4vw, 28px);
   margin-top: clamp(16px, 4vw, 24px);
 }
+
+/* Reusable modal/action helpers */
+.modal-actions {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(10px, 2.5vw, 14px);
+  margin-top: clamp(24px, 6vw, 32px);
+}
+
+.modal-done-button {
+  margin-top: 24px;
+}
+
+/* Deadline Detail Modal */
+.deadline-detail-modal {
+  max-width: 560px;
+}
+
+.deadline-detail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: clamp(12px, 3vw, 16px);
+}
+
+.deadline-detail-section {
+  margin-top: clamp(20px, 5vw, 28px);
+}
+
+.deadline-detail-heading {
+  margin: 0 0 clamp(10px, 2.5vw, 14px);
+  font-size: clamp(15px, 3.7vw, 17px);
+  font-weight: 700;
+}
+
+.deadline-detail-text {
+  margin: 0;
+  color: #374151;
+  font-size: clamp(13px, 3.2vw, 15px);
+  line-height: 1.5;
+}
+
+.completion-message {
+  text-align: center;
+}

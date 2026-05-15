@@ -1,6 +1,7 @@
 import BottomNavBar from "../components/Navbar";
 import "../styles/mainpages.css";
 import { useNavigate } from "react-router-dom";
+import AppButton from "../components/AppButton";
 
 export default function Dashboard() {
   const progressPercent = 45;
@@ -37,12 +38,13 @@ export default function Dashboard() {
               Due: March 15
             </p>
 
-            <button
-              className="small-button"
-              onClick={() => navigate("/calendar")}
+            <AppButton
+              variant="small"
+              onClick={() => navigate("/deadlines")}
+              ariaLabel="View deadline details"
             >
               View Details
-            </button>
+            </AppButton>
           </div>
         </section>
 
@@ -52,12 +54,13 @@ export default function Dashboard() {
           <div className="section-row">
             <p className="section-text">Plan your Fall 2026 Semester</p>
 
-            <button
-              className="small-button"
+            <AppButton
+              variant="small"
               onClick={() => navigate("/semester-planning")}
+              ariaLabel="Start semester planning"
             >
               Start Planning
-            </button>
+            </AppButton>
           </div>
         </section>
       </main>
