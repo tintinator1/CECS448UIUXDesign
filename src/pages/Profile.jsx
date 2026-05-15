@@ -10,8 +10,8 @@ export default function Profile() {
   const [largerText, setLargerText] = useState(false);
 
   const user = {
-    name: "Tin Nguyen",
-    email: "tin@email.com",
+    name: "John Doe",
+    email: "JohnDoe123@email.com",
     major: "Computer Science",
     degree: "B.S. Computer Science",
     expectedGraduation: "Spring 2027",
