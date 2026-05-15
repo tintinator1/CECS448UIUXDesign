@@ -264,7 +264,7 @@ export default function SemesterPlanning() {
                 <div key={index} className="summary-course-item">
                   <div className="course-info">
                     <span className="course-code">{course.code}</span>
-                    <span className="course-name">{course.name}</span>
+                    <span className="course-name"> {course.name}</span>
                   </div>
                   <span className="course-units">{course.units} units</span>
                 </div>

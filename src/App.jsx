@@ -7,9 +7,9 @@ import Onboarding from "./pages/Onboarding";
 import Tutorial from "./pages/Tutorial";
 
 // import Help from "./pages/Help";
-//import DegreePathway from "./pages/DegreePathway";
+import DegreePathway from "./pages/DegreePathway";
 //import Calendar from "./pages/Calendar";
-//import SemesterPlanning from "./pages/SemesterPlanning";
+import SemesterPlanning from "./pages/SemesterPlanning";
 
 import "./App.css";
 
@@ -25,9 +25,9 @@ function App() {
           <Route path="/dashboard" element={<Dashboard/>} />
           <Route path="/onboarding" element={<Onboarding/>}/>
           <Route path="/tutorial" element={<Tutorial/>}/>
-          {/*<Route path="/degree-pathway" element={<DegreePathway />} />
+          <Route path="/degree-pathway" element={<DegreePathway />} />
           <Route path="/semester-planning" element={<SemesterPlanning />} />
-          <Route path="/calendar" element={<Calendar />} />
+          {/*<Route path="/calendar" element={<Calendar />} />
           <Route path="/help" element={<Help />} />*/}
         </Routes>
       </main>
