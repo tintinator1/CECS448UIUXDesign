@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import BottomNavBar from "../components/Navbar";
 import SemesterSelector from "../components/SemesterSelector";
 import AppButton from "../components/AppButton";
@@ -21,6 +21,7 @@ const recommendedCourses = {
 
 export default function SemesterPlanning() {
   const navigate = useNavigate();
+  const location = useLocation();
   const [selectedSemester, setSelectedSemester] = useState("Fall 2026");
   const [selectedCourses, setSelectedCourses] = useState([]);
   const [customCourse, setCustomCourse] = useState({ code: "", name: "", units: "" });
@@ -30,9 +31,14 @@ export default function SemesterPlanning() {
   const [major, setMajor] = useState("Undecided");
 
   useEffect(() => {
-    const userMajor = localStorage.getItem("userMajor") || "Undecided";
+    const userMajor = location.state?.changedMajor || localStorage.getItem("userMajor") || "Computer Science";
     setMajor(userMajor);
-  }, []);
+
+    if (location.state?.autoAddRecommended) {
+      const autoCourses = recommendedCourses[userMajor] || recommendedCourses["Undecided"];
+      setSelectedCourses(autoCourses);
+    }
+  }, [location.state]);
 
   const courses = recommendedCourses[major] || recommendedCourses["Undecided"];
 
@@ -84,6 +90,8 @@ export default function SemesterPlanning() {
       `semesterPlan_${selectedSemester}`,
       JSON.stringify(selectedCourses)
     );
+
+    navigate("/degree-pathway");
   };
 
   const totalUnits = selectedCourses.reduce((sum, course) => sum + course.units, 0);
@@ -107,6 +115,15 @@ export default function SemesterPlanning() {
         <section className="page-section semester-planning-selector-section">
           <SemesterSelector value={selectedSemester} onChange={setSelectedSemester} />
         </section>
+
+        {location.state?.autoAddRecommended && (
+          <section className="major-change-notice content-card">
+            <p className="tips-text">
+              Recommended courses for your new {major} pathway were automatically added.
+              Review the plan below before saving.
+            </p>
+          </section>
+        )}
 
         {/* Completed Courses */}
         <section className="page-section">
