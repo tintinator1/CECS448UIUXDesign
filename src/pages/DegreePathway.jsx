@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import BottomNavBar from "../components/Navbar";
 import SemesterSelector from "../components/SemesterSelector";
 import "../styles/mainpages.css";
@@ -149,18 +149,25 @@ export default function DegreePathway() {
         {/* Remaining Courses */}
         <section className="page-section">
           <h2 className="section-heading">Remaining Requirements</h2>
-          <div className="stack-sm">
-            {courses.remaining.map((course, index) => (
-              <div key={index} className="course-item content-card content-card-hover remaining">
+
+          <div className="course-list">
+            {courses.remaining.slice(0, 4).map((course, index) => (
+              <div key={index} className="course-item content-card remaining">
                 <div className="course-check empty">○</div>
+
                 <div className="course-info">
                   <div className="course-code">{course.code}</div>
                   <div className="course-name">{course.name}</div>
                 </div>
+
                 <div className="course-units">{course.units} units</div>
               </div>
             ))}
           </div>
+
+          <Link to="/all-remaining-req" className="text-link view-all-link">
+            View all remaining requirements
+          </Link>
         </section>
 
         {/* Action Button */}

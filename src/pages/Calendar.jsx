@@ -93,7 +93,7 @@ export default function Calendar() {
           </div>
         </section>
 
-        <Link to="/help" className="helpful-resources-link">
+        <Link to="/help" className="text-link helpful-resources-link">
           View helpful resources
         </Link>
       </main>

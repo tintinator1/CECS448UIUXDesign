@@ -40,9 +40,6 @@ export default function Help() {
 
     setTimeout(() => {
       setShowRedirectModal(false);
-
-      // Later, when you add real links, uncomment this:
-      // window.open(url, "_blank", "noreferrer");
     }, 2000);
   };
 
@@ -59,7 +56,7 @@ export default function Help() {
               <div key={link.title} className="help-link-item">
                 <a
                   href={link.url}
-                  className="help-link-title"
+                  className="text-link help-link-title"
                   onClick={(e) => handleLinkClick(e, link.url)}
                 >
                   {link.title}

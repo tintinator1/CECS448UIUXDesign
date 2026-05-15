@@ -153,7 +153,6 @@
 .add-course-button:focus,
 .skip-button:focus,
 .major-option:focus,
-.helpful-resources-link:focus,
 .help-link-title:focus {
   outline: 2px solid #2563eb;
   outline-offset: 2px;
@@ -837,16 +836,6 @@
   color: #666;
 }
 
-.helpful-resources-link {
-  display: inline-block;
-  margin-top: clamp(56px, 14vw, 80px);
-  color: #000;
-  font-size: clamp(14px, 3.5vw, 16px);
-  font-weight: 700;
-  font-style: italic;
-  text-decoration: underline;
-}
-
 /* Help */
 .help-link-item {
   display: flex;
@@ -855,10 +844,7 @@
 }
 
 .help-link-title {
-  color: #000;
   font-size: clamp(16px, 3.8vw, 18px);
-  font-weight: 700;
-  text-decoration: underline;
 }
 
 .help-link-title:hover {
@@ -894,4 +880,34 @@
   .page-content {
     max-width: 1100px;
   }
+}
+
+/* Hyperlink Text */
+.text-link {
+  display: inline-block;
+  color: #000;
+  font-size: clamp(14px, 3.5vw, 16px);
+  font-weight: 700;
+  font-style: italic;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.text-link:hover {
+  color: #2563eb;
+}
+
+.text-link:focus {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.helpful-resources-link {
+  margin-top: clamp(56px, 14vw, 80px);
+}
+
+.view-all-link {
+  margin-bottom: clamp(18px, 4vw, 28px);
+  margin-top: clamp(16px, 4vw, 24px);
 }

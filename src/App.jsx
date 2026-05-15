@@ -5,7 +5,7 @@ import Forgotpw from "./pages/Forgotpw";
 import Dashboard from "./pages/Dashboard";
 import Onboarding from "./pages/Onboarding";
 import Tutorial from "./pages/Tutorial";
-
+import AllRemainingReq from "./pages/AllRemainingReq";
 import Help from "./pages/Help";
 import DegreePathway from "./pages/DegreePathway";
 import Calendar from "./pages/Calendar";
@@ -29,6 +29,7 @@ function App() {
           <Route path="/semester-planning" element={<SemesterPlanning />} />
           <Route path="/calendar" element={<Calendar />} />
           <Route path="/help" element={<Help />} />
+          <Route path="/all-remaining-req" element={<AllRemainingReq />} />
         </Routes>
       </main>
     </div>
