@@ -54,7 +54,7 @@ export default function Help() {
         <section className="page-section">
           <h2 className="section-heading">Campus Links</h2>
 
-          <div className="help-link-list">
+          <div className="stack-lg">
             {helpfulLinks.map((link) => (
               <div key={link.title} className="help-link-item">
                 <a

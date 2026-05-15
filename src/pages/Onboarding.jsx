@@ -59,7 +59,7 @@ export default function Onboarding() {
             </select>
           </div>
 
-          <div className="tips-section">
+          <div className="tips-section content-card">
             <p className="tips-heading">Tips:</p>
             <p className="tips-text">
               Not sure what to study yet? That's okay! You can continue as
@@ -69,7 +69,7 @@ export default function Onboarding() {
           </div>
         </section>
 
-        <div className="onboarding-buttons">
+        <div className="onboarding-buttons stack-md">
           <button
             onClick={handleContinue}
             disabled={!selectedMajor}

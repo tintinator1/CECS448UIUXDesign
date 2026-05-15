@@ -74,7 +74,7 @@ export default function DegreePathway() {
   return (
     <div className="page">
       <main className="page-content">
-        <div className="section-row" style={{ marginBottom: "clamp(18px, 5vw, 26px)" }}>
+        <div className="section-row degree-header">
           <div>
             <h1 className="page-title">Degree Pathway</h1>
             <p className="degree-major" role="status" aria-live="polite">
@@ -115,9 +115,9 @@ export default function DegreePathway() {
         {/* Completed Courses */}
         <section className="page-section">
           <h2 className="section-heading">Completed Requirements</h2>
-          <div className="course-list">
+          <div className="stack-sm">
             {courses.completed.map((course, index) => (
-              <div key={index} className="course-item">
+              <div key={index} className="course-item content-card content-card-hover">
                 <div className="course-check">✓</div>
                 <div className="course-info">
                   <div className="course-code">{course.code}</div>
@@ -132,9 +132,9 @@ export default function DegreePathway() {
         {/* In Progress Courses */}
         <section className="page-section">
           <h2 className="section-heading">Currently Taking ({semester})</h2>
-          <div className="course-list">
+          <div className="stack-sm">
             {courses.inProgress.map((course, index) => (
-              <div key={index} className="course-item">
+              <div key={index} className="course-item content-card content-card-hover">
                 <div className="course-check in-progress">—</div>
                 <div className="course-info">
                   <div className="course-code">{course.code}</div>
@@ -149,9 +149,9 @@ export default function DegreePathway() {
         {/* Remaining Courses */}
         <section className="page-section">
           <h2 className="section-heading">Remaining Requirements</h2>
-          <div className="course-list">
+          <div className="stack-sm">
             {courses.remaining.map((course, index) => (
-              <div key={index} className="course-item remaining">
+              <div key={index} className="course-item content-card content-card-hover remaining">
                 <div className="course-check empty">○</div>
                 <div className="course-info">
                   <div className="course-code">{course.code}</div>
@@ -164,7 +164,7 @@ export default function DegreePathway() {
         </section>
 
         {/* Action Button */}
-        <div className="sticky-action" style={{ paddingBottom: "clamp(90px, 20vw, 105px)" }}>
+        <div className="sticky-action">
           <button
             onClick={handleStartPlanning}
             className="primary-button"
@@ -183,7 +183,7 @@ export default function DegreePathway() {
             <p className="modal-warning">
               ⚠️ Changing your major will update your degree requirements, recommended courses, and academic milestones.
             </p>
-            <div className="major-list">
+            <div className="major-list stack-sm">
               {Object.keys(sampleCourses).map((major) => (
                 <button
                   key={major}

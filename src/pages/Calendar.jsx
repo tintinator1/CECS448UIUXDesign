@@ -1,8 +1,8 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import BottomNavBar from "../components/Navbar";
 import SemesterSelector from "../components/SemesterSelector";
 import "../styles/mainpages.css";
-import { Link } from "react-router-dom";
 
 const deadlines = [
   {
@@ -43,14 +43,14 @@ export default function Calendar() {
   return (
     <div className="page">
       <main className="page-content calendar-page-content">
-        <h1 className="page-title calendar-title">Deadlines</h1>
+        <h1 className="page-title">Deadlines</h1>
 
         <SemesterSelector value={semester} onChange={setSemester} />
 
         <section className="page-section">
           <h2 className="section-heading">Upcoming Deadlines</h2>
 
-          <div className="calendar-deadline-list">
+          <div className="stack-lg">
             {deadlines.map((deadline) => (
               <div key={deadline.title} className="section-row calendar-deadline-row">
                 <p className="section-text">
@@ -69,10 +69,10 @@ export default function Calendar() {
           </div>
         </section>
 
-        <section className="calendar-section checklist-preview-section">
+        <section className="page-section">
           <h2 className="section-heading">Helpful Checklist</h2>
 
-          <div className="calendar-checklist-list">
+          <div className="stack-md">
             {checklistItems.map((item) => {
               const isChecked = checkedItems.includes(item);
 
