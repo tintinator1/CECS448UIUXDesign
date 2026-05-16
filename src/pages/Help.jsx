@@ -1,62 +1,86 @@
+import { useState } from "react";
 import BottomNavBar from "../components/Navbar";
 import "../styles/mainpages.css";
 
-const faqItems = [
+const helpfulLinks = [
   {
-    question: "What is a prerequisite?",
-    answer: "A prerequisite is a course you must complete before you can enroll in another course. For example, you need to pass Calculus I before taking Calculus II.",
+    title: "Financial Aid Website",
+    description: "View financial aid information, deadlines, and application details.",
+    url: "#",
   },
   {
-    question: "How do I know if I'm on track to graduate?",
-    answer: "Check your Degree Progress on the Dashboard. It shows your completed units and percentage toward graduation. You can also meet with an academic advisor for a detailed review.",
+    title: "Canvas",
+    description: "Access your courses, assignments, grades, and class announcements.",
+    url: "#",
   },
   {
-    question: "What should I do if I want to change my major?",
-    answer: "Go to Degree Pathway and click 'Change Major'. The system will show you how the change affects your degree requirements. It's also recommended to meet with an advisor.",
+    title: "Student Center",
+    description: "Check enrollment, registration, holds, fees, and academic records.",
+    url: "#",
   },
   {
-    question: "How many units should I take per semester?",
-    answer: "Full-time students typically take 12-15 units per semester. Taking 15 units per semester helps you graduate in 4 years. If you're working or need extra support, 12 units is considered full-time.",
+    title: "Tutoring",
+    description: "Find tutoring support for classes, writing, math, and study skills.",
+    url: "#",
   },
   {
-    question: "Where can I get help if I'm struggling in a class?",
-    answer: "Visit the Tutoring Center (Student Services Building, Room 150) or the Writing Center (Library, 2nd Floor). Both offer free support to all students.",
-  },
-  {
-    question: "What is FAFSA and when should I apply?",
-    answer: "FAFSA (Free Application for Federal Student Aid) is how you apply for financial aid. You should apply as soon as possible after October 1st for the following academic year.",
+    title: "Counseling Appointments",
+    description: "Schedule appointments with academic, career, or personal counselors.",
+    url: "#",
   },
 ];
 
 export default function Help() {
+  const [showRedirectModal, setShowRedirectModal] = useState(false);
+
+  const handleLinkClick = (e, url) => {
+    e.preventDefault();
+
+    setShowRedirectModal(true);
+
+    setTimeout(() => {
+      setShowRedirectModal(false);
+    }, 2000);
+  };
+
   return (
     <div className="page">
       <main className="page-content">
-        <h1 className="page-title">Help & FAQs</h1>
-        <p className="page-subtitle">
-          Common questions and answers to help you navigate university life
-        </p>
+        <h1 className="page-title">Helpful Resources</h1>
 
-        <section className="page-section" style={{ marginTop: "32px" }}>
-          <div className="faq-list">
-            {faqItems.map((item, index) => (
-              <details key={index} className="faq-item">
-                <summary className="faq-question">{item.question}</summary>
-                <p className="faq-answer">{item.answer}</p>
-              </details>
+        <section className="page-section">
+          <h2 className="section-heading">Campus Links</h2>
+
+          <div className="stack-lg">
+            {helpfulLinks.map((link) => (
+              <div key={link.title} className="help-link-item">
+                <a
+                  href={link.url}
+                  className="text-link help-link-title"
+                  onClick={(e) => handleLinkClick(e, link.url)}
+                >
+                  {link.title}
+                </a>
+
+                <p className="help-link-description">
+                  {link.description}
+                </p>
+              </div>
             ))}
           </div>
         </section>
-
-        <section className="page-section">
-          <h2 className="section-heading">Still Need Help?</h2>
-          <p className="section-text">
-            Contact the Academic Advising Center at (562) 985-4641 or visit Library, 3rd Floor during office hours.
-          </p>
-        </section>
-
-        <div style={{ height: "clamp(80px, 18vw, 95px)" }} />
       </main>
+
+      {showRedirectModal && (
+        <div className="modal-overlay" role="dialog" aria-modal="true">
+          <div className="modal-content redirect-modal">
+            <h2 className="modal-title">Redirecting...</h2>
+            <p className="redirect-modal-text">
+              Please wait while we send you to the selected resource.
+            </p>
+          </div>
+        </div>
+      )}
 
       <BottomNavBar />
     </div>

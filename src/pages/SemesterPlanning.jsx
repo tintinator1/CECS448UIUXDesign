@@ -1,37 +1,114 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import BottomNavBar from "../components/Navbar";
+import SemesterSelector from "../components/SemesterSelector";
+import AppButton from "../components/AppButton";
+import BackButton from "../components/BackButton";
 import "../styles/mainpages.css";
 
-const recommendedCourses = {
-  "Computer Science": [
-    { code: "CECS 277", name: "Object-Oriented Programming", units: 3, prerequisite: "CECS 274" },
-    { code: "CECS 323", name: "Database Fundamentals", units: 3, prerequisite: "CECS 228" },
-    { code: "PHYS 151", name: "Physics I", units: 3, prerequisite: "MATH 122" },
-  ],
-  "Undecided": [
-    { code: "PHIL 100", name: "Introduction to Philosophy", units: 3, prerequisite: null },
-    { code: "COMM 100", name: "Public Speaking", units: 3, prerequisite: null },
-    { code: "BIOL 100", name: "Introduction to Biology", units: 3, prerequisite: null },
-  ],
+const recommendedCoursesBySemester = {
+  "Computer Science": {
+    "Fall 2026": [
+      { code: "CECS 277", name: "Object-Oriented Programming", units: 3, prerequisite: "CECS 274" },
+      { code: "CECS 323", name: "Database Fundamentals", units: 3, prerequisite: "CECS 228" },
+      { code: "PHYS 151", name: "Physics I", units: 3, prerequisite: "MATH 122" },
+    ],
+    "Spring 2027": [
+      { code: "CECS 326", name: "Operating Systems", units: 3, prerequisite: "CECS 277" },
+      { code: "CECS 328", name: "Algorithms", units: 3, prerequisite: "CECS 228" },
+      { code: "CECS 343", name: "Software Engineering", units: 3, prerequisite: "CECS 277" },
+    ],
+    "Fall 2027": [
+      { code: "CECS 378", name: "Introduction to Computer Security", units: 3, prerequisite: "CECS 326" },
+      { code: "CECS 448", name: "User Interface Design", units: 3, prerequisite: "CECS 343" },
+      { code: "CECS 453", name: "Mobile Application Development", units: 3, prerequisite: "CECS 277" },
+    ],
+    "Spring 2028": [
+      { code: "CECS 491A", name: "Senior Project I", units: 3, prerequisite: "CECS 343" },
+      { code: "CECS 475", name: "Software Development with Frameworks", units: 3, prerequisite: "CECS 343" },
+      { code: "CECS 478", name: "Computer Security Principles", units: 3, prerequisite: "CECS 326" },
+    ],
+  },
+
+  "Undecided": {
+    "Fall 2026": [
+      { code: "PHIL 100", name: "Introduction to Philosophy", units: 3, prerequisite: null },
+      { code: "COMM 100", name: "Public Speaking", units: 3, prerequisite: null },
+      { code: "BIOL 100", name: "Introduction to Biology", units: 3, prerequisite: null },
+    ],
+    "Spring 2027": [
+      { code: "ENGL 200", name: "Critical Reading and Writing", units: 3, prerequisite: "ENGL 100" },
+      { code: "HIST 101", name: "World History", units: 3, prerequisite: null },
+      { code: "ART 110", name: "Introduction to Art", units: 3, prerequisite: null },
+    ],
+    "Fall 2027": [
+      { code: "PSYC 100", name: "Introduction to Psychology", units: 3, prerequisite: null },
+      { code: "SOC 100", name: "Introduction to Sociology", units: 3, prerequisite: null },
+      { code: "MATH 103", name: "College Algebra", units: 3, prerequisite: null },
+    ],
+    "Spring 2028": [
+      { code: "GEOG 100", name: "Introduction to Geography", units: 3, prerequisite: null },
+      { code: "MUS 100", name: "Music Appreciation", units: 3, prerequisite: null },
+      { code: "KIN 101", name: "Lifetime Fitness", units: 3, prerequisite: null },
+    ],
+  },
+};
+
+const getSavedSemesterPlan = (semester) => {
+  try {
+    return JSON.parse(localStorage.getItem(`semesterPlan_${semester}`)) || [];
+  } catch {
+    return [];
+  }
 };
 
 export default function SemesterPlanning() {
   const navigate = useNavigate();
-  const [selectedSemester, setSelectedSemester] = useState("Fall 2026");
+  const location = useLocation();
+  const [selectedSemester, setSelectedSemester] = useState(
+    location.state?.selectedSemester || "Fall 2026"
+  );
   const [selectedCourses, setSelectedCourses] = useState([]);
   const [customCourse, setCustomCourse] = useState({ code: "", name: "", units: "" });
   const [showAddCourse, setShowAddCourse] = useState(false);
   const [showSaveModal, setShowSaveModal] = useState(false);
   const [validationStep, setValidationStep] = useState(0);
-  const [major, setMajor] = useState("Undecided");
+  const [major, setMajor] = useState("Computer Science");
 
   useEffect(() => {
-    const userMajor = localStorage.getItem("userMajor") || "Undecided";
-    setMajor(userMajor);
-  }, []);
+    const userMajor =
+      location.state?.changedMajor ||
+      localStorage.getItem("userMajor") ||
+      "Computer Science";
 
-  const courses = recommendedCourses[major] || recommendedCourses["Undecided"];
+    setMajor(userMajor);
+  }, [location.state]);
+
+  useEffect(() => {
+    const savedPlan = getSavedSemesterPlan(selectedSemester);
+    const shouldAutoAddRecommended =
+      location.state?.autoAddRecommended &&
+      (location.state?.selectedSemester || "Fall 2026") === selectedSemester &&
+      savedPlan.length === 0;
+
+    if (shouldAutoAddRecommended) {
+      const autoCourses =
+        recommendedCoursesBySemester[location.state?.changedMajor || major]?.[selectedSemester] ||
+        recommendedCoursesBySemester["Undecided"]?.[selectedSemester] ||
+        [];
+
+      setSelectedCourses(autoCourses);
+      return;
+    }
+
+    setSelectedCourses(savedPlan);
+  }, [selectedSemester, major, location.state]);
+
+  
+  const courses =
+    recommendedCoursesBySemester[major]?.[selectedSemester] ||
+    recommendedCoursesBySemester["Undecided"]?.[selectedSemester] ||
+    [];
 
   const handleCourseToggle = (course) => {
     setSelectedCourses((prev) => {
@@ -76,11 +153,13 @@ export default function SemesterPlanning() {
   const handleModalClose = () => {
     setShowSaveModal(false);
     setValidationStep(0);
-    // Store the plan
+
     localStorage.setItem(
       `semesterPlan_${selectedSemester}`,
       JSON.stringify(selectedCourses)
     );
+
+    navigate("/degree-pathway");
   };
 
   const totalUnits = selectedCourses.reduce((sum, course) => sum + course.units, 0);
@@ -91,40 +170,49 @@ export default function SemesterPlanning() {
     { code: "CECS 225", name: "Digital Logic" },
   ];
 
-  const inProgressCourses = [
-    { code: "CECS 228", name: "Discrete Mathematics" },
-    { code: "CECS 274", name: "Data Structures" },
-  ];
+  const inProgressCourses =
+    selectedSemester === "Fall 2026"
+      ? [
+          { code: "CECS 228", name: "Discrete Mathematics" },
+          { code: "CECS 274", name: "Data Structures" },
+        ]
+      : [];
+
+  const hasNoRecommendedCourses = courses.length === 0;
 
   return (
     <div className="page">
       <main className="page-content">
         <h1 className="page-title">Semester Planning</h1>
 
-        <section className="page-section" style={{ marginTop: "24px" }}>
-          <label htmlFor="semester-select" className="section-heading">
-            Select Semester
-          </label>
-          <select
-            id="semester-select"
-            value={selectedSemester}
-            onChange={(e) => setSelectedSemester(e.target.value)}
-            className="semester-select"
-            aria-label="Select semester to plan"
-          >
-            <option>Fall 2026</option>
-            <option>Spring 2027</option>
-            <option>Fall 2027</option>
-            <option>Spring 2028</option>
-          </select>
+        <section className="page-section semester-planning-selector-section">
+          <SemesterSelector value={selectedSemester} onChange={setSelectedSemester} />
         </section>
+
+        {location.state?.autoAddRecommended && (
+          <section className="major-change-notice content-card">
+            <p className="tips-text">
+              Recommended courses for your new {major} pathway were automatically added.
+              Review the plan below before saving.
+            </p>
+          </section>
+        )}
+
+        {selectedSemester !== "Fall 2026" && selectedCourses.length === 0 && (
+          <section className="major-change-notice content-card">
+            <p className="tips-text">
+              No course plan has been saved for {selectedSemester} yet. Add courses below,
+              then save the semester plan so it appears in Degree Pathway.
+            </p>
+          </section>
+        )}
 
         {/* Completed Courses */}
         <section className="page-section">
           <h2 className="section-heading">Completed Courses</h2>
           <div className="completed-course-list">
             {completedCourses.map((course, index) => (
-              <div key={index} className="completed-course-chip">
+              <div key={index} className="course-chip completed">
                 <span className="chip-check">✓</span>
                 <span className="chip-code">{course.code}</span>
               </div>
@@ -135,63 +223,83 @@ export default function SemesterPlanning() {
         {/* In Progress Courses */}
         <section className="page-section">
           <h2 className="section-heading">Currently Taking</h2>
-          <div className="completed-course-list">
-            {inProgressCourses.map((course, index) => (
-              <div key={index} className="in-progress-course-chip">
-                <span className="chip-check">—</span>
-                <span className="chip-code">{course.code}</span>
-              </div>
-            ))}
-          </div>
+
+          {inProgressCourses.length > 0 ? (
+            <div className="completed-course-list">
+              {inProgressCourses.map((course, index) => (
+                <div key={index} className="course-chip in-progress">
+                  <span className="chip-check">—</span>
+                  <span className="chip-code">{course.code}</span>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="content-card">
+              <p className="section-text">
+                No courses are currently listed for {selectedSemester}. Start planning this
+                semester by adding courses below.
+              </p>
+            </div>
+          )}
         </section>
 
         {/* Recommended Courses */}
         <section className="page-section">
           <h2 className="section-heading">Recommended Next Courses</h2>
-          <div className="course-selection-list">
-            {courses.map((course, index) => {
-              const isSelected = selectedCourses.find((c) => c.code === course.code);
-              return (
-                <label
-                  key={index}
-                  className={`selectable-course ${isSelected ? "selected" : ""}`}
-                  htmlFor={`course-${index}`}
-                >
-                  <input
-                    type="checkbox"
-                    id={`course-${index}`}
-                    checked={!!isSelected}
-                    onChange={() => handleCourseToggle(course)}
-                    className="course-checkbox"
-                    aria-label={`Select ${course.code} - ${course.name}`}
-                  />
-                  <div className="course-info">
-                    <div className="course-code">{course.code}</div>
-                    <div className="course-name">{course.name}</div>
-                    {course.prerequisite && (
-                      <div className="course-prerequisite">
-                        Prerequisite: {course.prerequisite}
-                      </div>
-                    )}
-                  </div>
-                  <div className="course-units">{course.units} units</div>
-                </label>
-              );
-            })}
-          </div>
+
+          {hasNoRecommendedCourses ? (
+            <div className="content-card">
+              <p className="section-text">
+                No recommended courses are available for {selectedSemester} yet. Use
+                “Add a course” to build and save a plan for this semester.
+              </p>
+            </div>
+          ) : (
+            <div className="course-selection-list stack-sm">
+              {courses.map((course, index) => {
+                const isSelected = selectedCourses.find((c) => c.code === course.code);
+                return (
+                  <label
+                    key={index}
+                    className={`selectable-course content-card ${isSelected ? "selected" : ""}`}
+                    htmlFor={`course-${index}`}
+                  >
+                    <input
+                      type="checkbox"
+                      id={`course-${index}`}
+                      checked={!!isSelected}
+                      onChange={() => handleCourseToggle(course)}
+                      className="course-checkbox"
+                      aria-label={`Select ${course.code} - ${course.name}`}
+                    />
+                    <div className="course-info">
+                      <div className="course-code">{course.code}</div>
+                      <div className="course-name">{course.name}</div>
+                      {course.prerequisite && (
+                        <div className="course-prerequisite">
+                          Prerequisite: {course.prerequisite}
+                        </div>
+                      )}
+                    </div>
+                    <div className="course-units">{course.units} units</div>
+                  </label>
+                );
+              })}
+            </div>
+          )}
 
           {!showAddCourse && (
-            <button
+            <AppButton
+              variant="add"
               onClick={() => setShowAddCourse(true)}
-              className="add-course-button"
-              aria-label="Add a custom course"
+              ariaLabel="Add a custom course"
             >
               + Add a course
-            </button>
+            </AppButton>
           )}
 
           {showAddCourse && (
-            <div className="add-course-form">
+            <div className="add-course-form content-card">
               <h3 className="form-heading">Add Custom Course</h3>
               <div className="form-row">
                 <input
@@ -232,24 +340,24 @@ export default function SemesterPlanning() {
                 />
               </div>
               <div className="form-buttons">
-                <button
+                <AppButton
+                  variant="primary"
                   onClick={handleAddCustomCourse}
-                  className="primary-button"
                   disabled={!customCourse.code || !customCourse.name || !customCourse.units}
-                  aria-label="Confirm add course"
+                  ariaLabel="Confirm add course"
                 >
                   Add Course
-                </button>
-                <button
+                </AppButton>
+                <AppButton
+                  variant="secondary"
                   onClick={() => {
                     setShowAddCourse(false);
                     setCustomCourse({ code: "", name: "", units: "" });
                   }}
-                  className="secondary-button"
-                  aria-label="Cancel adding course"
+                  ariaLabel="Cancel adding course"
                 >
                   Cancel
-                </button>
+                </AppButton>
               </div>
             </div>
           )}
@@ -259,12 +367,12 @@ export default function SemesterPlanning() {
         {selectedCourses.length > 0 && (
           <section className="page-section">
             <h2 className="section-heading">Your Plan ({totalUnits} units)</h2>
-            <div className="selected-courses-summary">
+            <div className="stack-sm">
               {selectedCourses.map((course, index) => (
                 <div key={index} className="summary-course-item">
                   <div className="course-info">
                     <span className="course-code">{course.code}</span>
-                    <span className="course-name">{course.name}</span>
+                    <span className="course-name"> {course.name}</span>
                   </div>
                   <span className="course-units">{course.units} units</span>
                 </div>
@@ -273,16 +381,31 @@ export default function SemesterPlanning() {
           </section>
         )}
 
-        {/* Save Button */}
-        <div className="sticky-action" style={{ paddingBottom: "clamp(90px, 20vw, 105px)" }}>
-          <button
-            onClick={handleSavePlan}
-            className="primary-button"
-            disabled={selectedCourses.length === 0}
-            aria-label="Save semester plan"
+        {/* Action Buttons */}
+        <div className="semester-planning-actions">
+          <div className="disabled-button-tooltip-wrapper">
+            <AppButton
+              variant="primary"
+              onClick={handleSavePlan}
+              disabled={selectedCourses.length === 0}
+              ariaLabel="Save semester plan"
+            >
+              Save Semester Plan
+            </AppButton>
+
+            {selectedCourses.length === 0 && (
+              <span className="disabled-button-tooltip">
+                Please select at least one course before saving your semester plan.
+              </span>
+            )}
+          </div>
+
+          <BackButton
+            to="/degree-pathway"
+            ariaLabel="Cancel semester planning and return to degree pathway"
           >
-            Save Semester Plan
-          </button>
+            Cancel
+          </BackButton>
         </div>
       </main>
 
@@ -293,7 +416,7 @@ export default function SemesterPlanning() {
             <h2 id="save-modal-title" className="modal-title">
               {validationStep === 3 ? "Semester Plan Saved!" : "Saving Semester Plan..."}
             </h2>
-            <div className="validation-steps">
+            <div className="validation-steps stack-md">
               <div className={`validation-step ${validationStep >= 1 ? "complete" : ""}`}>
                 {validationStep >= 1 ? "✓" : "○"} Validating classes
               </div>
@@ -305,14 +428,14 @@ export default function SemesterPlanning() {
               </div>
             </div>
             {validationStep === 3 && (
-              <button
+              <AppButton
+                variant="primary"
+                className="modal-done-button"
                 onClick={handleModalClose}
-                className="primary-button"
-                style={{ marginTop: "24px" }}
-                aria-label="Close and return to degree pathway"
+                ariaLabel="Close and return to degree pathway"
               >
                 Done
-              </button>
+              </AppButton>
             )}
           </div>
         </div>

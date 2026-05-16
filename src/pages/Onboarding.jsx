@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import AppButton from "../components/AppButton";
 import "../styles/mainpages.css";
 
 const majors = [
@@ -59,7 +60,7 @@ export default function Onboarding() {
             </select>
           </div>
 
-          <div className="tips-section">
+          <div className="tips-section content-card">
             <p className="tips-heading">Tips:</p>
             <p className="tips-text">
               Not sure what to study yet? That's okay! You can continue as
@@ -69,23 +70,23 @@ export default function Onboarding() {
           </div>
         </section>
 
-        <div className="onboarding-buttons">
-          <button
+        <div className="onboarding-buttons stack-md">
+          <AppButton
+            variant="primary"
             onClick={handleContinue}
             disabled={!selectedMajor}
-            className="primary-button"
-            aria-label="Continue with selected major"
+            ariaLabel="Continue with selected major"
           >
             Continue with Selected Major
-          </button>
+          </AppButton>
 
-          <button
+          <AppButton
+            variant="secondary"
             onClick={handleContinueUndecided}
-            className="secondary-button"
-            aria-label="Continue without selecting a major"
+            ariaLabel="Continue without selecting a major"
           >
             Continue as Undecided
-          </button>
+          </AppButton>
         </div>
       </main>
 

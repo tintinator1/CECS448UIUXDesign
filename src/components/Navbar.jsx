@@ -14,12 +14,12 @@ const navItems = [
     filledIcon: <IoSchool />,
   },
   {
-    path: "/calendar",
+    path: "/deadlines",
     outlineIcon: <IoCalendarClearOutline />,
     filledIcon: <IoCalendarClear />,
   },
   {
-    path: "/resources",
+    path: "/help",
     outlineIcon: <IoLinkOutline />,
     filledIcon: <IoLink />,
   },

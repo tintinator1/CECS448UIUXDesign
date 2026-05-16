@@ -6,15 +6,13 @@
 }
 
 .page-content {
-  padding-top: clamp(28px, 6vw, 50px);
-  padding-left: clamp(20px, 7vw, 30px);
-  padding-right: clamp(20px, 7vw, 30px);
-  padding-bottom: clamp(80px, 18vw, 95px);
+  padding: clamp(28px, 6vw, 50px) clamp(20px, 7vw, 30px) clamp(80px, 18vw, 95px);
 }
+
 .page-title {
   margin: 0;
-  font-size: clamp(16px, 4vw, 18px);
-  font-weight: 500;
+  font-size: clamp(18px, 4.6vw, 22px);
+  font-weight: 700;
 }
 
 .page-section {
@@ -40,9 +38,52 @@
 
 .section-text {
   margin: 0;
-  font-size: clamp(12px, 3.1vw, 14px);
+  font-size: clamp(14px, 3.5vw, 16px);
   font-weight: 400;
   line-height: 1.3;
+}
+
+.stack-sm,
+.stack-md,
+.stack-lg {
+  display: flex;
+  flex-direction: column;
+}
+
+.stack-sm {
+  gap: clamp(8px, 2vw, 10px);
+}
+
+.stack-md {
+  gap: clamp(12px, 3vw, 16px);
+}
+
+.stack-lg {
+  gap: clamp(16px, 4vw, 22px);
+}
+
+.content-card {
+  padding: clamp(12px, 3vw, 16px);
+  background-color: #f9fafb;
+  border-radius: 10px;
+}
+
+.content-card-hover {
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+.content-card-hover:hover {
+  background-color: #f3f4f6;
+}
+
+.small-button,
+.primary-button,
+.secondary-button,
+.change-major-button,
+.add-course-button,
+.skip-button,
+.major-option {
+  cursor: pointer;
 }
 
 .small-button {
@@ -54,7 +95,6 @@
   color: black;
   font-size: clamp(11px, 2.8vw, 13px);
   font-weight: 500;
-  cursor: pointer;
   flex-shrink: 0;
 }
 
@@ -62,13 +102,99 @@
   background-color: #c0c0c0;
 }
 
-.small-button:focus {
+.primary-button,
+.secondary-button {
+  width: 100%;
+  min-height: clamp(45px, 11vw, 50px);
+  padding: clamp(12px, 3vw, 14px) clamp(16px, 4vw, 20px);
+  border-radius: 10px;
+  font-size: clamp(14px, 3.5vw, 16px);
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.primary-button {
+  border: none;
+  background-color: #2563eb;
+  color: white;
+}
+
+.primary-button:hover:not(:disabled) {
+  background-color: #1d4ed8;
+}
+
+.primary-button:disabled {
+  background-color: #d9d9d9;
+  color: #999;
+  cursor: not-allowed;
+}
+
+.secondary-button {
+  border: 2px solid #d9d9d9;
+  background-color: white;
+  color: black;
+}
+
+.secondary-button:hover:not(:disabled) {
+  background-color: #f3f4f6;
+  border-color: #999;
+}
+
+.secondary-button:disabled {
+  color: #999;
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.small-button:focus,
+.primary-button:focus,
+.secondary-button:focus,
+.change-major-button:focus,
+.add-course-button:focus,
+.skip-button:focus,
+.major-option:focus,
+.help-link-title:focus {
   outline: 2px solid #2563eb;
   outline-offset: 2px;
 }
 
-/* Onboarding Styles */
-.onboarding-page {
+.sticky-action {
+  padding-bottom: clamp(90px, 20vw, 105px);
+}
+
+/* Dashboard */
+.progress-section {
+  margin-top: clamp(54px, 14vw, 105px);
+}
+
+.progress-bar-background {
+  width: 100%;
+  height: clamp(32px, 8vw, 45px);
+  background-color: rgba(117, 117, 117, 0.47);
+  border-radius: 999px;
+  position: relative;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background-color: #28ee81;
+  border-radius: 999px;
+}
+
+.progress-bar-text {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(12px, 3vw, 15px);
+  font-weight: 700;
+}
+
+/* Onboarding */
+.onboarding-page,
+.tutorial-page {
   display: flex;
   flex-direction: column;
   min-height: 100dvh;
@@ -94,28 +220,31 @@
   margin-bottom: clamp(24px, 6vw, 32px);
 }
 
-.major-select {
+.major-select,
+.form-input {
   width: 100%;
-  height: clamp(45px, 11vw, 50px);
-  padding: 0 clamp(12px, 3vw, 16px);
   border: 2px solid #d9d9d9;
   border-radius: 10px;
   background-color: white;
   font-size: clamp(14px, 3.5vw, 16px);
+}
+
+.major-select {
+  height: clamp(45px, 11vw, 50px);
+  padding: 0 clamp(12px, 3vw, 16px);
   font-weight: 500;
   cursor: pointer;
 }
 
-.major-select:focus {
+.major-select:focus,
+.form-input:focus {
   outline: none;
   border-color: #2563eb;
 }
 
 .tips-section {
-  padding: clamp(16px, 4vw, 20px);
-  background-color: #f3f4f6;
-  border-radius: 10px;
   border-left: 4px solid #2563eb;
+  background-color: #f3f4f6;
 }
 
 .tips-heading {
@@ -128,85 +257,16 @@
 .tips-text {
   margin: 0;
   font-size: clamp(12px, 3vw, 14px);
-  font-weight: 400;
   line-height: 1.5;
   color: #4b5563;
 }
 
 .onboarding-buttons {
   margin-top: clamp(48px, 12vw, 80px);
-  display: flex;
-  flex-direction: column;
-  gap: clamp(12px, 3vw, 16px);
   padding-bottom: clamp(80px, 18vw, 95px);
 }
 
-.primary-button {
-  width: 100%;
-  min-height: clamp(45px, 11vw, 50px);
-  padding: clamp(12px, 3vw, 14px) clamp(16px, 4vw, 20px);
-  border: none;
-  border-radius: 10px;
-  background-color: #2563eb;
-  color: white;
-  font-size: clamp(14px, 3.5vw, 16px);
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-
-.primary-button:hover:not(:disabled) {
-  background-color: #1d4ed8;
-}
-
-.primary-button:disabled {
-  background-color: #d9d9d9;
-  color: #999;
-  cursor: not-allowed;
-}
-
-.primary-button:focus {
-  outline: 2px solid #2563eb;
-  outline-offset: 2px;
-}
-
-.secondary-button {
-  width: 100%;
-  min-height: clamp(45px, 11vw, 50px);
-  padding: clamp(12px, 3vw, 14px) clamp(16px, 4vw, 20px);
-  border: 2px solid #d9d9d9;
-  border-radius: 10px;
-  background-color: white;
-  color: black;
-  font-size: clamp(14px, 3.5vw, 16px);
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.secondary-button:hover:not(:disabled) {
-  background-color: #f3f4f6;
-  border-color: #999;
-}
-
-.secondary-button:disabled {
-  color: #999;
-  cursor: not-allowed;
-  opacity: 0.5;
-}
-
-.secondary-button:focus {
-  outline: 2px solid #2563eb;
-  outline-offset: 2px;
-}
-
-/* Tutorial Styles */
-.tutorial-page {
-  display: flex;
-  flex-direction: column;
-  min-height: 100dvh;
-}
-
+/* Tutorial */
 .tutorial-header {
   display: flex;
   justify-content: space-between;
@@ -221,7 +281,6 @@
   color: #2563eb;
   font-size: clamp(14px, 3.5vw, 16px);
   font-weight: 600;
-  cursor: pointer;
   text-decoration: underline;
 }
 
@@ -229,23 +288,18 @@
   color: #1d4ed8;
 }
 
-.skip-button:focus {
-  outline: 2px solid #2563eb;
-  outline-offset: 2px;
-  border-radius: 4px;
-}
-
-.tutorial-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  flex: 1;
-}
-
+.tutorial-content,
 .tutorial-icon-container {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.tutorial-content {
+  flex: 1;
+}
+
+.tutorial-icon-container {
   margin-bottom: clamp(24px, 6vw, 32px);
 }
 
@@ -268,12 +322,8 @@
 }
 
 @keyframes bounce {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(10px);
-  }
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(10px); }
 }
 
 .tutorial-info {
@@ -291,7 +341,6 @@
 .tutorial-step-description {
   margin: 0;
   font-size: clamp(14px, 3.5vw, 16px);
-  font-weight: 400;
   line-height: 1.6;
   color: #4b5563;
 }
@@ -328,7 +377,6 @@
   flex: 1;
 }
 
-/* Screen reader only */
 .sr-only {
   position: absolute;
   width: 1px;
@@ -341,7 +389,11 @@
   border-width: 0;
 }
 
-/* Degree Pathway Styles */
+/* Degree Pathway */
+.degree-header {
+  margin-bottom: clamp(18px, 5vw, 26px);
+}
+
 .degree-major {
   margin: clamp(4px, 1vw, 8px) 0 0;
   font-size: clamp(13px, 3.2vw, 15px);
@@ -357,7 +409,6 @@
   color: #2563eb;
   font-size: clamp(12px, 3vw, 14px);
   font-weight: 600;
-  cursor: pointer;
   transition: all 0.2s;
   flex-shrink: 0;
 }
@@ -365,11 +416,6 @@
 .change-major-button:hover {
   background-color: #2563eb;
   color: white;
-}
-
-.change-major-button:focus {
-  outline: 2px solid #2563eb;
-  outline-offset: 2px;
 }
 
 .degree-summary {
@@ -400,20 +446,10 @@
   color: #000;
 }
 
-.course-list {
-  display: flex;
-  flex-direction: column;
-  gap: clamp(10px, 2.5vw, 12px);
-}
-
 .course-item {
   display: flex;
   align-items: center;
   gap: clamp(10px, 2.5vw, 12px);
-  padding: clamp(12px, 3vw, 14px);
-  background-color: #f9fafb;
-  border-radius: 8px;
-  transition: background-color 0.2s;
 }
 
 .course-item.remaining {
@@ -468,7 +504,7 @@
   flex-shrink: 0;
 }
 
-/* Modal Styles */
+/* Modal */
 .modal-overlay {
   position: fixed;
   inset: 0;
@@ -507,9 +543,6 @@
 }
 
 .major-list {
-  display: flex;
-  flex-direction: column;
-  gap: clamp(10px, 2.5vw, 12px);
   margin-bottom: clamp(20px, 5vw, 24px);
 }
 
@@ -521,7 +554,6 @@
   font-size: clamp(14px, 3.5vw, 16px);
   font-weight: 500;
   text-align: left;
-  cursor: pointer;
   transition: all 0.2s;
 }
 
@@ -536,73 +568,34 @@
   color: white;
 }
 
-.major-option:focus {
-  outline: 2px solid #2563eb;
-  outline-offset: 2px;
+.change-major-warning-text.modal-summary-text {
+  margin: 24px 0 0;
+  text-align: center;
 }
 
-/* Responsive Design */
-@media (min-width: 768px) {
-  .degree-summary {
-    grid-template-columns: repeat(4, 1fr);
-  }
-
-  .page-content {
-    max-width: 900px;
-    margin: 0 auto;
-  }
-}
-
-@media (min-width: 1024px) {
-  .page-content {
-    max-width: 1100px;
-  }
-}
-
-/* Semester Planning Styles */
-.semester-select {
-  width: 100%;
-  height: clamp(45px, 11vw, 50px);
-  padding: 0 clamp(12px, 3vw, 16px);
-  border: 2px solid #d9d9d9;
-  border-radius: 10px;
-  background-color: white;
-  font-size: clamp(14px, 3.5vw, 16px);
-  font-weight: 500;
-  cursor: pointer;
-}
-
-.semester-select:focus {
-  outline: none;
-  border-color: #2563eb;
-}
-
+/* Semester Planning */
 .completed-course-list {
   display: flex;
   flex-wrap: wrap;
   gap: clamp(8px, 2vw, 10px);
 }
 
-.completed-course-chip {
+.course-chip {
   display: flex;
   align-items: center;
   gap: clamp(6px, 1.5vw, 8px);
   padding: clamp(8px, 2vw, 10px) clamp(12px, 3vw, 14px);
-  background-color: #d1fae5;
   border-radius: 999px;
   font-size: clamp(12px, 3vw, 14px);
   font-weight: 500;
 }
 
-.in-progress-course-chip {
-  display: flex;
-  align-items: center;
-  gap: clamp(6px, 1.5vw, 8px);
-  padding: clamp(8px, 2vw, 10px) clamp(12px, 3vw, 14px);
+.course-chip.completed {
+  background-color: #d1fae5;
+}
+
+.course-chip.in-progress {
   background-color: #fef3c7;
-  border-radius: 999px;
-  font-size: clamp(12px, 3vw, 14px);
-  font-weight: 500;
 }
 
 .chip-check {
@@ -615,9 +608,6 @@
 }
 
 .course-selection-list {
-  display: flex;
-  flex-direction: column;
-  gap: clamp(10px, 2.5vw, 12px);
   margin-bottom: clamp(16px, 4vw, 20px);
 }
 
@@ -625,10 +615,7 @@
   display: flex;
   align-items: flex-start;
   gap: clamp(10px, 2.5vw, 12px);
-  padding: clamp(14px, 3.5vw, 16px);
-  background-color: #f9fafb;
   border: 2px solid transparent;
-  border-radius: 10px;
   cursor: pointer;
   transition: all 0.2s;
 }
@@ -668,7 +655,6 @@
   color: #2563eb;
   font-size: clamp(14px, 3.5vw, 16px);
   font-weight: 600;
-  cursor: pointer;
   transition: all 0.2s;
 }
 
@@ -677,16 +663,9 @@
   background-color: #f0f9ff;
 }
 
-.add-course-button:focus {
-  outline: 2px solid #2563eb;
-  outline-offset: 2px;
-}
-
 .add-course-form {
-  padding: clamp(16px, 4vw, 20px);
-  background-color: #f3f4f6;
-  border-radius: 10px;
   margin-top: clamp(12px, 3vw, 16px);
+  background-color: #f3f4f6;
 }
 
 .form-heading {
@@ -700,18 +679,9 @@
 }
 
 .form-input {
-  width: 100%;
   height: clamp(40px, 10vw, 45px);
   padding: 0 clamp(12px, 3vw, 14px);
-  border: 2px solid #d9d9d9;
   border-radius: 8px;
-  background-color: white;
-  font-size: clamp(14px, 3.5vw, 16px);
-}
-
-.form-input:focus {
-  outline: none;
-  border-color: #2563eb;
 }
 
 .form-buttons {
@@ -725,12 +695,6 @@
   flex: 1;
 }
 
-.selected-courses-summary {
-  display: flex;
-  flex-direction: column;
-  gap: clamp(8px, 2vw, 10px);
-}
-
 .summary-course-item {
   display: flex;
   justify-content: space-between;
@@ -740,14 +704,12 @@
   border-radius: 8px;
 }
 
-.save-modal {
+.save-modal,
+.redirect-modal {
   text-align: center;
 }
 
 .validation-steps {
-  display: flex;
-  flex-direction: column;
-  gap: clamp(12px, 3vw, 16px);
   margin-top: clamp(20px, 5vw, 24px);
 }
 
@@ -766,329 +728,513 @@
   color: #065f46;
 }
 
-/* Calendar/Deadlines Styles */
-.page-subtitle {
-  margin: clamp(8px, 2vw, 12px) 0 0;
-  font-size: clamp(13px, 3.2vw, 15px);
-  color: #666;
-  font-weight: 400;
-}
-
-.deadline-list {
+.semester-planning-actions {
   display: flex;
   flex-direction: column;
-  gap: clamp(16px, 4vw, 20px);
+  gap: clamp(8px, 2vw, 14px);
+  margin-top: clamp(24px, 6vw, 40px);
+  padding-bottom: clamp(90px, 20vw, 105px);
 }
 
-.deadline-card {
-  padding: clamp(16px, 4vw, 20px);
-  background-color: #f9fafb;
-  border-radius: 10px;
-  border-left: 4px solid #2563eb;
-}
-
-.deadline-header {
+/* Semester Selector Component */
+.semester-selector-row {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 12px;
+  align-items: center;
+  gap: clamp(12px, 3vw, 18px);
+  margin-top: clamp(14px, 3.5vw, 20px);
+  margin-bottom: clamp(24px, 5vw, 40px);
 }
 
-.deadline-title {
-  margin: 0;
-  font-size: clamp(15px, 3.7vw, 17px);
-  font-weight: 600;
-  line-height: 1.3;
-}
-
-.deadline-date {
-  margin: clamp(4px, 1vw, 6px) 0 0;
-  font-size: clamp(12px, 3vw, 14px);
-  color: #666;
-  font-weight: 500;
-}
-
-.deadline-priority {
-  padding: clamp(4px, 1vw, 6px) clamp(10px, 2.5vw, 12px);
-  border-radius: 999px;
-  color: white;
-  font-size: clamp(10px, 2.5vw, 12px);
-  font-weight: 600;
-  white-space: nowrap;
+.semester-selector-label {
+  font-size: clamp(16px, 3.5vw, 20px);
+  font-weight: 700;
+  color: #000;
   flex-shrink: 0;
 }
 
-.back-link {
-  display: inline-block;
-  margin-bottom: clamp(20px, 5vw, 24px);
-  padding: clamp(8px, 2vw, 10px) 0;
+.semester-selector-control {
+  position: relative;
+  width: clamp(130px, 34vw, 170px);
+  height: clamp(20px, 5.5vw, 26px);
+  border-radius: 999px;
+  background-color: #d9d9d9;
+  overflow: hidden;
+}
+
+.semester-selector-select {
+  width: 100%;
+  height: 100%;
+  padding: 0 clamp(24px, 6vw, 32px) 0 clamp(8px, 2.2vw, 12px);
   border: none;
-  background: transparent;
-  color: #2563eb;
+  border-radius: 999px;
+  background-color: transparent;
+  color: black;
   font-size: clamp(14px, 3.5vw, 16px);
-  font-weight: 600;
+  font-weight: 400;
+  line-height: 1;
   cursor: pointer;
-  text-decoration: none;
+  appearance: none;
 }
 
-.back-link:hover {
+.semester-selector-select:focus {
+  outline: 2px solid #2563eb;
+  outline-offset: -2px;
+}
+
+.semester-selector-arrow {
+  position: absolute;
+  top: 50%;
+  right: clamp(5px, 1.3vw, 7px);
+  width: clamp(12px, 3vw, 16px);
+  height: clamp(12px, 3vw, 16px);
+  border-radius: 50%;
+  background-color: #000;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateY(-50%);
+  font-size: clamp(14px, 3vw, 16px);
+  font-weight: 700;
+  line-height: 0.8;
+  pointer-events: none;
+}
+
+.semester-planning-selector-section {
+  margin-top: clamp(20px, 5vw, 30px);
+}
+
+/* Calendar */
+.calendar-page-content {
+  padding-top: clamp(42px, 12vw, 70px);
+}
+
+.calendar-deadline-row {
+  gap: clamp(14px, 4vw, 24px);
+}
+
+.calendar-checklist-row {
+  display: flex;
+  align-items: center;
+  gap: clamp(12px, 3.2vw, 16px);
+  cursor: pointer;
+}
+
+.calendar-checklist-box {
+  width: clamp(18px, 4.8vw, 22px);
+  height: clamp(18px, 4.8vw, 22px);
+  margin: 0;
+  border: 1px solid black;
+  cursor: pointer;
+  accent-color: #000;
+  flex-shrink: 0;
+}
+
+.calendar-checklist-text {
+  font-size: clamp(13px, 3.3vw, 15px);
+  font-weight: 400;
+  color: #000;
+}
+
+.calendar-checklist-text.checked {
+  text-decoration: line-through;
+  color: #666;
+}
+
+/* Help */
+.help-link-item {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(6px, 1.5vw, 8px);
+}
+
+.help-link-title {
+  font-size: clamp(16px, 3.8vw, 18px);
+}
+
+.help-link-title:hover {
+  color: #2563eb;
+}
+
+.help-link-description,
+.redirect-modal-text {
+  margin: 0;
+  color: #374151;
+  font-size: clamp(13px, 3.2vw, 15px);
+  line-height: 1.4;
+}
+
+.redirect-modal-text {
+  font-size: clamp(14px, 3.5vw, 16px);
+  line-height: 1.5;
+}
+
+/* Responsive */
+@media (min-width: 768px) {
+  .degree-summary {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .page-content {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+}
+
+@media (min-width: 1024px) {
+  .page-content {
+    max-width: 1100px;
+  }
+}
+
+/* Hyperlink Text */
+.text-link {
+  display: inline-block;
+  color: #000;
+  font-size: clamp(14px, 3.5vw, 16px);
+  font-weight: 700;
+  font-style: italic;
   text-decoration: underline;
+  cursor: pointer;
 }
 
-.back-link:focus {
+.text-link:hover {
+  color: #2563eb;
+}
+
+.text-link:focus {
   outline: 2px solid #2563eb;
   outline-offset: 2px;
   border-radius: 4px;
 }
 
-.deadline-detail {
-  padding-bottom: clamp(90px, 20vw, 105px);
+.helpful-resources-link {
+  margin-top: clamp(56px, 14vw, 80px);
+}
+
+.view-all-link {
+  margin-bottom: clamp(18px, 4vw, 28px);
+  margin-top: clamp(16px, 4vw, 24px);
+}
+
+/* Reusable modal/action helpers */
+.modal-actions {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(10px, 2.5vw, 14px);
+  margin-top: clamp(24px, 6vw, 32px);
+}
+
+.modal-done-button {
+  margin-top: 24px;
+}
+
+/* Deadline Detail Modal */
+.deadline-detail-modal {
+  max-width: 560px;
 }
 
 .deadline-detail-header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  gap: 12px;
+  gap: clamp(12px, 3vw, 16px);
 }
 
-.deadline-detail-title {
+.deadline-detail-section {
+  margin-top: clamp(20px, 5vw, 28px);
+}
+
+.deadline-detail-heading {
+  margin: 0 0 clamp(10px, 2.5vw, 14px);
+  font-size: clamp(15px, 3.7vw, 17px);
+  font-weight: 700;
+}
+
+.deadline-detail-text {
+  margin: 0;
+  color: #374151;
+  font-size: clamp(13px, 3.2vw, 15px);
+  line-height: 1.5;
+}
+
+.completion-message {
+  text-align: center;
+}
+
+/* Profile Page */
+.profile-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: clamp(12px, 3vw, 18px);
+}
+
+.profile-subtitle {
+  margin: clamp(6px, 1.5vw, 8px) 0 0;
+  color: #666;
+  font-size: clamp(13px, 3.2vw, 15px);
+  line-height: 1.4;
+}
+
+.sign-out-button {
+  padding: clamp(8px, 2vw, 10px) clamp(14px, 3.5vw, 18px);
+  border: 2px solid #ef4444;
+  border-radius: 8px;
+  background-color: white;
+  color: #ef4444;
+  font-size: clamp(12px, 3vw, 14px);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.sign-out-button:hover {
+  background-color: #ef4444;
+  color: white;
+}
+
+.sign-out-button:focus {
+  outline: 2px solid #ef4444;
+  outline-offset: 2px;
+}
+
+.profile-user-card {
+  display: flex;
+  align-items: center;
+  gap: clamp(14px, 3.5vw, 18px);
+}
+
+.profile-avatar {
+  width: clamp(52px, 13vw, 64px);
+  height: clamp(52px, 13vw, 64px);
+  border-radius: 50%;
+  background-color: #2563eb;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(22px, 5.5vw, 28px);
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.profile-name {
   margin: 0;
   font-size: clamp(18px, 4.5vw, 22px);
   font-weight: 700;
-  line-height: 1.3;
 }
 
-.deadline-description {
-  margin: clamp(16px, 4vw, 20px) 0 0;
-  font-size: clamp(14px, 3.5vw, 16px);
-  line-height: 1.6;
-  color: #374151;
+.profile-email {
+  margin: clamp(4px, 1vw, 6px) 0 0;
+  color: #666;
+  font-size: clamp(13px, 3.2vw, 15px);
 }
 
-.checklist-section {
-  margin-top: clamp(32px, 8vw, 40px);
+.profile-info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: clamp(12px, 3vw, 16px);
 }
 
-.checklist-title {
-  margin: 0 0 clamp(16px, 4vw, 20px);
-  font-size: clamp(16px, 4vw, 18px);
+.profile-info-label {
+  color: #666;
+  font-size: clamp(13px, 3.2vw, 15px);
+  font-weight: 500;
+}
+
+.profile-info-value {
+  color: #000;
+  font-size: clamp(13px, 3.2vw, 15px);
   font-weight: 600;
+  text-align: right;
 }
 
-.checklist {
-  display: flex;
-  flex-direction: column;
-  gap: clamp(12px, 3vw, 14px);
+.profile-actions {
+  margin-top: clamp(32px, 8vw, 48px);
+  padding-bottom: clamp(90px, 20vw, 105px);
 }
 
-.checklist-item {
-  display: flex;
-  align-items: flex-start;
-  gap: clamp(10px, 2.5vw, 12px);
-  padding: clamp(12px, 3vw, 14px);
-  background-color: #f9fafb;
-  border-radius: 8px;
+.profile-checkbox-row {
   cursor: pointer;
-  transition: background-color 0.2s;
 }
 
-.checklist-item:hover {
-  background-color: #f3f4f6;
-}
-
-.checklist-checkbox {
-  width: clamp(18px, 4.5vw, 20px);
-  height: clamp(18px, 4.5vw, 20px);
-  margin-top: 2px;
+.profile-checkbox {
+  width: clamp(18px, 4.8vw, 22px);
+  height: clamp(18px, 4.8vw, 22px);
   cursor: pointer;
   accent-color: #2563eb;
   flex-shrink: 0;
 }
 
-.checklist-item span {
-  font-size: clamp(14px, 3.5vw, 16px);
-  line-height: 1.5;
+.profile-preferences-section {
+  margin-top: 24px;
 }
 
-.checklist-item span.checked {
-  text-decoration: line-through;
-  color: #9ca3af;
-}
 
-.resources-section {
-  margin-top: clamp(32px, 8vw, 40px);
-}
-
-.resources-title {
-  margin: 0 0 clamp(16px, 4vw, 20px);
-  font-size: clamp(16px, 4vw, 18px);
-  font-weight: 600;
-}
-
-.resources-list {
-  margin: 0;
-  padding-left: clamp(20px, 5vw, 24px);
-  display: flex;
-  flex-direction: column;
-  gap: clamp(10px, 2.5vw, 12px);
-}
-
-.resource-item {
-  font-size: clamp(13px, 3.2vw, 15px);
-  line-height: 1.6;
-  color: #374151;
-}
-
-/* Resources Page Styles */
-.resource-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: clamp(12px, 3vw, 16px);
-}
-
-@media (min-width: 640px) {
-  .resource-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-.resource-card {
-  padding: clamp(16px, 4vw, 20px);
-  background-color: #f9fafb;
-  border-radius: 10px;
-  border-left: 4px solid #2563eb;
-}
-
-.resource-name {
-  margin: 0 0 clamp(10px, 2.5vw, 12px);
-  font-size: clamp(15px, 3.7vw, 17px);
-  font-weight: 600;
-}
-
-.resource-detail {
-  margin: clamp(6px, 1.5vw, 8px) 0;
-  font-size: clamp(13px, 3.2vw, 15px);
-  color: #374151;
-}
-
-/* Profile Page Styles */
-.profile-info {
-  display: flex;
-  flex-direction: column;
-  gap: clamp(14px, 3.5vw, 16px);
-}
-
-.info-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  padding: clamp(14px, 3.5vw, 16px);
-  background-color: #f9fafb;
-  border-radius: 8px;
-}
-
-.info-label {
-  font-size: clamp(14px, 3.5vw, 16px);
-  font-weight: 600;
-  color: #374151;
-}
-
-.info-value {
-  font-size: clamp(14px, 3.5vw, 16px);
-  font-weight: 400;
-  color: #111827;
-  text-align: right;
-}
-
-.profile-action-button {
+.disabled-button-tooltip-wrapper {
+  position: relative;
   width: 100%;
-  padding: clamp(14px, 3.5vw, 16px);
-  margin-bottom: clamp(12px, 3vw, 14px);
-  border: 2px solid #2563eb;
-  border-radius: 10px;
-  background-color: white;
-  color: #2563eb;
-  font-size: clamp(14px, 3.5vw, 16px);
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s;
 }
 
-.profile-action-button:hover {
-  background-color: #2563eb;
+.disabled-button-tooltip {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 10px);
+  transform: translateX(-50%);
+  width: max-content;
+  max-width: min(320px, 85vw);
+  padding: 8px 12px;
+  border-radius: 8px;
+  background-color: #111827;
   color: white;
+  font-size: clamp(12px, 3vw, 14px);
+  font-weight: 500;
+  line-height: 1.4;
+  text-align: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  z-index: 10;
 }
 
-.profile-action-button:focus {
-  outline: 2px solid #2563eb;
-  outline-offset: 2px;
+.disabled-button-tooltip-wrapper:hover .disabled-button-tooltip,
+.disabled-button-tooltip-wrapper:focus-within .disabled-button-tooltip {
+  opacity: 1;
 }
 
-.profile-action-button.logout {
-  border-color: #ef4444;
-  color: #ef4444;
+/* Change Major Modal */
+.change-major-modal {
+  max-width: 560px;
 }
 
-.profile-action-button.logout:hover {
-  background-color: #ef4444;
-  color: white;
-}
-
-/* Help Page Styles */
-.faq-list {
+.change-major-form {
   display: flex;
   flex-direction: column;
-  gap: clamp(12px, 3vw, 16px);
+  gap: clamp(14px, 3.5vw, 18px);
 }
 
-.faq-item {
-  padding: clamp(16px, 4vw, 20px);
-  background-color: #f9fafb;
+.change-major-card {
+  padding: clamp(14px, 3.5vw, 18px);
+  border: 2px solid #d9d9d9;
   border-radius: 10px;
-  cursor: pointer;
-  transition: background-color 0.2s;
+  background-color: #f9fafb;
 }
 
-.faq-item:hover {
-  background-color: #f3f4f6;
-}
-
-.faq-item[open] {
+.change-major-card.selected {
+  border-color: #2563eb;
   background-color: #dbeafe;
 }
 
-.faq-question {
-  font-size: clamp(15px, 3.7vw, 17px);
+.change-major-label {
+  display: block;
+  margin-bottom: clamp(8px, 2vw, 10px);
+  font-size: clamp(13px, 3.2vw, 15px);
+  font-weight: 700;
+  color: #000;
+}
+
+.change-major-select-wrapper {
+  position: relative;
+}
+
+.change-major-select {
+  width: 100%;
+  min-height: clamp(44px, 10vw, 50px);
+  padding: 0 clamp(38px, 9vw, 44px) 0 clamp(12px, 3vw, 16px);
+  border: 2px solid #d9d9d9;
+  border-radius: 10px;
+  background-color: white;
+  color: #000;
+  font-size: clamp(14px, 3.5vw, 16px);
   font-weight: 600;
   cursor: pointer;
-  list-style: none;
-  display: flex;
-  align-items: center;
-  gap: 10px;
+  appearance: none;
 }
 
-.faq-question::before {
-  content: "+";
-  font-size: clamp(20px, 5vw, 24px);
+.change-major-select:focus {
+  outline: none;
+  border-color: #2563eb;
+}
+
+.change-major-dropdown-arrow {
+  position: absolute;
+  right: clamp(12px, 3vw, 16px);
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  font-size: clamp(18px, 4vw, 22px);
   font-weight: 700;
-  color: #2563eb;
-  flex-shrink: 0;
-  transition: transform 0.2s;
+  color: #000;
 }
 
-.faq-item[open] .faq-question::before {
-  content: "−";
-}
 
-.faq-question::-webkit-details-marker {
-  display: none;
-}
-
-.faq-answer {
-  margin: clamp(12px, 3vw, 16px) 0 0;
-  padding-left: clamp(30px, 7.5vw, 34px);
-  font-size: clamp(14px, 3.5vw, 16px);
-  line-height: 1.6;
+.change-major-warning-text {
+  margin: 0;
+  font-size: clamp(13px, 3.2vw, 15px);
+  line-height: 1.5;
   color: #374151;
+}
+
+.change-major-comparing {
+  text-align: center;
+  padding: clamp(12px, 3vw, 16px) 0;
+}
+
+.change-major-loading-circle {
+  width: clamp(42px, 10vw, 54px);
+  height: clamp(42px, 10vw, 54px);
+  margin: 0 auto clamp(16px, 4vw, 20px);
+  border: 4px solid #d9d9d9;
+  border-top-color: #2563eb;
+  border-radius: 50%;
+  animation: spin 0.9s linear infinite;
+}
+
+.change-major-results {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(16px, 4vw, 22px);
+}
+
+.change-major-result-card {
+  padding: clamp(14px, 3.5vw, 18px);
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  background-color: #f9fafb;
+}
+
+.change-major-result-title {
+  margin: 0 0 clamp(8px, 2vw, 10px);
+  font-size: clamp(14px, 3.5vw, 16px);
+  font-weight: 700;
+}
+
+.change-major-result-list {
+  margin: 0;
+  padding-left: clamp(18px, 4vw, 22px);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(6px, 1.5vw, 8px);
+}
+
+.change-major-result-list li {
+  font-size: clamp(13px, 3.2vw, 15px);
+  line-height: 1.4;
+  color: #374151;
+}
+
+.change-major-help-text {
+  margin: 0 0 clamp(18px, 4vw, 24px);
+  font-size: clamp(13px, 3.2vw, 15px);
+  line-height: 1.5;
+  color: #374151;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }

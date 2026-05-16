@@ -1,27 +1,28 @@
 import BottomNavBar from "../components/Navbar";
 import "../styles/mainpages.css";
+import { useNavigate } from "react-router-dom";
+import AppButton from "../components/AppButton";
 
 export default function Dashboard() {
   const progressPercent = 45;
+  const navigate = useNavigate();
 
   return (
     <div className="page">
       <main className="page-content">
-        <h1 className="page-title">Hi There</h1>
+        <h1 className="page-title">Dashboard</h1>
 
-        <section style={styles.progressSection}>
-          <h2 className="section-heading section-heading-light">
+        <section className="progress-section">
+          <h2 className="section-heading">
             Degree Progress
           </h2>
 
-          <div style={styles.progressBarBackground}>
+          <div className="progress-bar-background">
             <div
-              style={{
-                ...styles.progressBarFill,
-                width: `${progressPercent}%`,
-              }}
+              className="progress-bar-fill"
+              style={{ width: `${progressPercent}%` }}
             />
-            <span style={styles.progressText}>
+            <span className="progress-bar-text">
               {progressPercent}% Complete
             </span>
           </div>
@@ -37,7 +38,13 @@ export default function Dashboard() {
               Due: March 15
             </p>
 
-            <button className="small-button">View Details</button>
+            <AppButton
+              variant="small"
+              onClick={() => navigate("/deadlines")}
+              ariaLabel="View deadline details"
+            >
+              View Details
+            </AppButton>
           </div>
         </section>
 
@@ -47,7 +54,13 @@ export default function Dashboard() {
           <div className="section-row">
             <p className="section-text">Plan your Fall 2026 Semester</p>
 
-            <button className="small-button">Start Planning</button>
+            <AppButton
+              variant="small"
+              onClick={() => navigate("/semester-planning")}
+              ariaLabel="Start semester planning"
+            >
+              Start Planning
+            </AppButton>
           </div>
         </section>
       </main>
@@ -56,34 +69,3 @@ export default function Dashboard() {
     </div>
   );
 }
-
-const styles = {
-  progressSection: {
-    marginTop: "clamp(54px, 14vw, 105px)",
-  },
-
-  progressBarBackground: {
-    width: "100%",
-    height: "clamp(32px, 8vw, 45px)",
-    backgroundColor: "rgba(117, 117, 117, 0.47)",
-    borderRadius: "999px",
-    position: "relative",
-    overflow: "hidden",
-  },
-
-  progressBarFill: {
-    height: "100%",
-    backgroundColor: "#28ee81",
-    borderRadius: "999px",
-  },
-
-  progressText: {
-    position: "absolute",
-    inset: 0,
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    fontSize: "clamp(12px, 3vw, 15px)",
-    fontWeight: 700,
-  },
-};
