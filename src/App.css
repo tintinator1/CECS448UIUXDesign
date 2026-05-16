@@ -285,8 +285,13 @@ body.high-contrast .progress-bar-fill {
 }
 
 body.high-contrast .progress-bar-text {
-  color: #000000 !important;
+  color: #ffffff !important;
   font-weight: 700 !important;
+  text-shadow:
+    -2px -2px 0 #000,
+    2px -2px 0 #000,
+    -2px 2px 0 #000,
+    2px 2px 0 #000 !important;
 }
 
 /* Special elements */
