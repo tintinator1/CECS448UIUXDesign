@@ -1,22 +1,72 @@
 import { useNavigate } from "react-router-dom";
 import BottomNavBar from "../components/Navbar";
 import AppButton from "../components/AppButton";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "../styles/mainpages.css";
 
 export default function Profile() {
   const navigate = useNavigate();
   const [highContrast, setHighContrast] = useState(false);
   const [largerText, setLargerText] = useState(false);
-
-  const user = {
-    name: "John Doe",
-    email: "JohnDoe123@email.com",
-    major: "Computer Science",
-    degree: "B.S. Computer Science",
+  const [user, setUser] = useState({
+    name: "",
+    email: "",
+    major: "",
+    degree: "",
     expectedGraduation: "Spring 2027",
     currentSemester: "Fall 2026",
-  };
+  });
+
+  useEffect(() => {
+    // Load user data from localStorage
+    const userName = localStorage.getItem("userName") || "Student";
+    const userEmail = localStorage.getItem("userEmail") || "student@email.com";
+    const userMajor = localStorage.getItem("userMajor") || "Undecided";
+
+    setUser({
+      name: userName,
+      email: userEmail,
+      major: userMajor,
+      degree: userMajor !== "Undecided" ? `B.S. ${userMajor}` : "Undecided",
+      expectedGraduation: "Spring 2027",
+      currentSemester: "Fall 2026",
+    });
+
+    // Load app preferences from localStorage
+    const savedHighContrast = localStorage.getItem("highContrast") === "true";
+    const savedLargerText = localStorage.getItem("largerText") === "true";
+
+    setHighContrast(savedHighContrast);
+    setLargerText(savedLargerText);
+
+    // Apply preferences to document
+    if (savedHighContrast) {
+      document.body.classList.add("high-contrast");
+    }
+    if (savedLargerText) {
+      document.body.classList.add("larger-text");
+    }
+  }, []);
+
+  // Handle high contrast toggle
+  useEffect(() => {
+    localStorage.setItem("highContrast", highContrast);
+    if (highContrast) {
+      document.body.classList.add("high-contrast");
+    } else {
+      document.body.classList.remove("high-contrast");
+    }
+  }, [highContrast]);
+
+  // Handle larger text toggle
+  useEffect(() => {
+    localStorage.setItem("largerText", largerText);
+    if (largerText) {
+      document.body.classList.add("larger-text");
+    } else {
+      document.body.classList.remove("larger-text");
+    }
+  }, [largerText]);
 
   const handleChangePassword = () => {
     navigate("/forgot-password");

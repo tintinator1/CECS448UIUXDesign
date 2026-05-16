@@ -6,6 +6,12 @@ function Signup() {
 
     const handleSignup = (e) => {
         e.preventDefault();
+
+        // Store user data in localStorage
+        const formData = new FormData(e.target);
+        localStorage.setItem("userName", formData.get("name"));
+        localStorage.setItem("userEmail", formData.get("email"));
+
         // New users go through onboarding
         navigate("/onboarding");
     };

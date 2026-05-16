@@ -182,3 +182,286 @@
     border-right-color: var(--border);
   }
 }
+
+/* High Contrast Mode */
+body.high-contrast {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+}
+
+body.high-contrast .page {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+}
+
+/* Buttons */
+body.high-contrast button,
+body.high-contrast .auth-button,
+body.high-contrast .small-button,
+body.high-contrast .primary-button,
+body.high-contrast .secondary-button,
+body.high-contrast .profile-action-button,
+body.high-contrast .change-major-button,
+body.high-contrast .add-course-button {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+  border: 3px solid #ffffff !important;
+  font-weight: 700 !important;
+}
+
+body.high-contrast button:disabled {
+  background-color: #666666 !important;
+  color: #ffffff !important;
+  border: 3px solid #666666 !important;
+}
+
+/* Cards and containers */
+body.high-contrast .content-card,
+body.high-contrast .course-card,
+body.high-contrast .course-item,
+body.high-contrast .profile-info-row,
+body.high-contrast .help-link-item,
+body.high-contrast .summary-item,
+body.high-contrast .deadline-card,
+body.high-contrast .change-major-card,
+body.high-contrast .change-major-result-card,
+body.high-contrast .modal-content {
+  background-color: #000000 !important;
+  border: 3px solid #ffffff !important;
+  color: #ffffff !important;
+}
+
+/* Inputs and selects */
+body.high-contrast input,
+body.high-contrast select,
+body.high-contrast textarea {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+  border: 3px solid #ffffff !important;
+}
+
+body.high-contrast input::placeholder {
+  color: #cccccc !important;
+}
+
+/* Links */
+body.high-contrast .text-link,
+body.high-contrast a {
+  color: #00d4ff !important;
+  text-decoration: underline !important;
+  font-weight: 700 !important;
+}
+
+/* Navigation */
+body.high-contrast nav {
+  background-color: #000000 !important;
+  border-top: 3px solid #ffffff !important;
+}
+
+body.high-contrast nav a {
+  color: #ffffff !important;
+}
+
+body.high-contrast nav a svg {
+  color: #ffffff !important;
+}
+
+body.high-contrast nav a[class*="active"] {
+  color: #ffff00 !important;
+}
+
+body.high-contrast nav a[class*="active"] svg {
+  color: #ffff00 !important;
+}
+
+/* Progress bars */
+body.high-contrast .progress-bar-background {
+  background-color: #000000 !important;
+  border: 3px solid #ffffff !important;
+}
+
+body.high-contrast .progress-bar-fill {
+  background-color: #ffffff !important;
+}
+
+body.high-contrast .progress-bar-text {
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  text-shadow:
+    -2px -2px 0 #000,
+    2px -2px 0 #000,
+    -2px 2px 0 #000,
+    2px 2px 0 #000 !important;
+}
+
+/* Special elements */
+body.high-contrast .course-check {
+  color: #ffffff !important;
+  border: 2px solid #ffffff !important;
+  background-color: #000000 !important;
+}
+
+body.high-contrast .profile-avatar {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+  border: 3px solid #ffffff !important;
+}
+
+body.high-contrast .modal-overlay {
+  background-color: rgba(0, 0, 0, 0.95) !important;
+}
+
+/* Text emphasis */
+body.high-contrast h1,
+body.high-contrast h2,
+body.high-contrast h3,
+body.high-contrast .page-title,
+body.high-contrast .section-heading,
+body.high-contrast .course-code {
+  color: #ffffff !important;
+  font-weight: 700 !important;
+}
+
+/* Ensure all text is visible */
+body.high-contrast p,
+body.high-contrast span,
+body.high-contrast label,
+body.high-contrast li,
+body.high-contrast td,
+body.high-contrast th,
+body.high-contrast div {
+  color: #ffffff !important;
+}
+
+/* Validation steps */
+body.high-contrast .validation-step {
+  color: #ffffff !important;
+  border: 2px solid #ffffff !important;
+}
+
+body.high-contrast .validation-step.complete {
+  background-color: #000000 !important;
+  border-color: #00ff00 !important;
+  color: #00ff00 !important;
+}
+
+/* Larger Text Mode */
+body.larger-text .page-title {
+  font-size: clamp(24px, 6vw, 28px) !important;
+}
+
+body.larger-text .section-heading {
+  font-size: clamp(20px, 5vw, 24px) !important;
+}
+
+body.larger-text .page-subtitle,
+body.larger-text .section-text,
+body.larger-text p,
+body.larger-text span,
+body.larger-text label,
+body.larger-text a,
+body.larger-text li,
+body.larger-text td,
+body.larger-text th {
+  font-size: clamp(18px, 4.5vw, 20px) !important;
+  line-height: 1.5 !important;
+}
+
+body.larger-text .navbar-item span {
+  font-size: clamp(14px, 3.5vw, 16px) !important;
+}
+
+/* Make navbar icons larger */
+body.larger-text nav a {
+  width: clamp(28px, 7vw, 32px) !important;
+  height: clamp(28px, 7vw, 32px) !important;
+  font-size: clamp(28px, 7vw, 32px) !important;
+}
+
+body.larger-text nav a svg {
+  width: clamp(28px, 7vw, 32px) !important;
+  height: clamp(28px, 7vw, 32px) !important;
+}
+
+/* Fix buttons for larger text */
+body.larger-text .small-button {
+  width: auto !important;
+  min-width: clamp(120px, 30vw, 150px) !important;
+  height: auto !important;
+  min-height: clamp(36px, 9vw, 42px) !important;
+  padding: clamp(8px, 2vw, 10px) clamp(12px, 3vw, 16px) !important;
+  white-space: nowrap !important;
+  font-size: clamp(16px, 4vw, 18px) !important;
+}
+
+body.larger-text .primary-button,
+body.larger-text .secondary-button {
+  min-height: clamp(52px, 13vw, 58px) !important;
+  padding: clamp(12px, 3vw, 14px) clamp(16px, 4vw, 20px) !important;
+  font-size: clamp(18px, 4.5vw, 20px) !important;
+}
+
+body.larger-text .change-major-button {
+  padding: clamp(10px, 2.5vw, 12px) clamp(16px, 4vw, 20px) !important;
+  font-size: clamp(16px, 4vw, 18px) !important;
+  white-space: nowrap !important;
+}
+
+body.larger-text input,
+body.larger-text select,
+body.larger-text button {
+  font-size: clamp(18px, 4.5vw, 20px) !important;
+}
+
+/* Fix course items and summary items for larger text */
+body.larger-text .course-item {
+  gap: clamp(12px, 3vw, 16px) !important;
+  padding: clamp(14px, 3.5vw, 18px) !important;
+}
+
+body.larger-text .course-code {
+  font-size: clamp(17px, 4.2vw, 19px) !important;
+  font-weight: 600 !important;
+}
+
+body.larger-text .course-name {
+  font-size: clamp(16px, 4vw, 18px) !important;
+}
+
+body.larger-text .course-units {
+  font-size: clamp(15px, 3.7vw, 17px) !important;
+}
+
+body.larger-text .summary-item {
+  padding: clamp(18px, 4.5vw, 24px) !important;
+}
+
+body.larger-text .summary-label,
+body.larger-text .summary-value {
+  font-size: clamp(17px, 4.2vw, 19px) !important;
+}
+
+/* Fix modals for larger text */
+body.larger-text .modal-title {
+  font-size: clamp(22px, 5.5vw, 26px) !important;
+}
+
+body.larger-text .change-major-help-text,
+body.larger-text .change-major-warning-text,
+body.larger-text .change-major-result-list li {
+  font-size: clamp(17px, 4.2vw, 19px) !important;
+}
+
+body.larger-text .validation-step {
+  font-size: clamp(17px, 4.2vw, 19px) !important;
+}
+
+/* Ensure section rows wrap properly with larger text */
+body.larger-text .section-row {
+  gap: clamp(12px, 3vw, 16px) !important;
+}
+
+/* Fix degree header */
+body.larger-text .degree-major {
+  font-size: clamp(18px, 4.5vw, 20px) !important;
+}
