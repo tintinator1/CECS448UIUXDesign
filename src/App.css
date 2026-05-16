@@ -182,3 +182,159 @@
     border-right-color: var(--border);
   }
 }
+
+/* High Contrast Mode */
+body.high-contrast {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+}
+
+body.high-contrast .page {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+}
+
+body.high-contrast button,
+body.high-contrast .auth-button,
+body.high-contrast .small-button,
+body.high-contrast .profile-action-button {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+  border: 2px solid #ffffff !important;
+}
+
+body.high-contrast .content-card,
+body.high-contrast .course-card,
+body.high-contrast .profile-info-row,
+body.high-contrast .help-link-item {
+  background-color: #1a1a1a !important;
+  border: 2px solid #ffffff !important;
+  color: #ffffff !important;
+}
+
+body.high-contrast input,
+body.high-contrast select {
+  background-color: #1a1a1a !important;
+  color: #ffffff !important;
+  border: 2px solid #ffffff !important;
+}
+
+body.high-contrast .text-link,
+body.high-contrast a {
+  color: #00d4ff !important;
+  text-decoration: underline !important;
+}
+
+body.high-contrast .navbar {
+  background-color: #1a1a1a !important;
+  border-top: 2px solid #ffffff !important;
+}
+
+/* Larger Text Mode */
+body.larger-text .page-title {
+  font-size: clamp(24px, 6vw, 28px) !important;
+}
+
+body.larger-text .section-heading {
+  font-size: clamp(20px, 5vw, 24px) !important;
+}
+
+body.larger-text .page-subtitle,
+body.larger-text .section-text,
+body.larger-text p,
+body.larger-text span,
+body.larger-text label,
+body.larger-text a,
+body.larger-text li,
+body.larger-text td,
+body.larger-text th {
+  font-size: clamp(18px, 4.5vw, 20px) !important;
+  line-height: 1.5 !important;
+}
+
+body.larger-text .navbar-item span {
+  font-size: clamp(14px, 3.5vw, 16px) !important;
+}
+
+/* Fix buttons for larger text */
+body.larger-text .small-button {
+  width: auto !important;
+  min-width: clamp(120px, 30vw, 150px) !important;
+  height: auto !important;
+  min-height: clamp(36px, 9vw, 42px) !important;
+  padding: clamp(8px, 2vw, 10px) clamp(12px, 3vw, 16px) !important;
+  white-space: nowrap !important;
+  font-size: clamp(16px, 4vw, 18px) !important;
+}
+
+body.larger-text .primary-button,
+body.larger-text .secondary-button {
+  min-height: clamp(52px, 13vw, 58px) !important;
+  padding: clamp(12px, 3vw, 14px) clamp(16px, 4vw, 20px) !important;
+  font-size: clamp(18px, 4.5vw, 20px) !important;
+}
+
+body.larger-text .change-major-button {
+  padding: clamp(10px, 2.5vw, 12px) clamp(16px, 4vw, 20px) !important;
+  font-size: clamp(16px, 4vw, 18px) !important;
+  white-space: nowrap !important;
+}
+
+body.larger-text input,
+body.larger-text select,
+body.larger-text button {
+  font-size: clamp(18px, 4.5vw, 20px) !important;
+}
+
+/* Fix course items and summary items for larger text */
+body.larger-text .course-item {
+  gap: clamp(12px, 3vw, 16px) !important;
+  padding: clamp(14px, 3.5vw, 18px) !important;
+}
+
+body.larger-text .course-code {
+  font-size: clamp(17px, 4.2vw, 19px) !important;
+  font-weight: 600 !important;
+}
+
+body.larger-text .course-name {
+  font-size: clamp(16px, 4vw, 18px) !important;
+}
+
+body.larger-text .course-units {
+  font-size: clamp(15px, 3.7vw, 17px) !important;
+}
+
+body.larger-text .summary-item {
+  padding: clamp(18px, 4.5vw, 24px) !important;
+}
+
+body.larger-text .summary-label,
+body.larger-text .summary-value {
+  font-size: clamp(17px, 4.2vw, 19px) !important;
+}
+
+/* Fix modals for larger text */
+body.larger-text .modal-title {
+  font-size: clamp(22px, 5.5vw, 26px) !important;
+}
+
+body.larger-text .change-major-help-text,
+body.larger-text .change-major-warning-text,
+body.larger-text .change-major-result-list li {
+  font-size: clamp(17px, 4.2vw, 19px) !important;
+}
+
+body.larger-text .validation-step {
+  font-size: clamp(17px, 4.2vw, 19px) !important;
+}
+
+/* Ensure section rows wrap properly with larger text */
+body.larger-text .section-row {
+  gap: clamp(12px, 3vw, 16px) !important;
+}
+
+/* Fix degree header */
+body.larger-text .degree-major {
+  font-size: clamp(18px, 4.5vw, 20px) !important;
+}

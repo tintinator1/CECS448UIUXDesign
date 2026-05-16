@@ -31,7 +31,42 @@ export default function Profile() {
       expectedGraduation: "Spring 2027",
       currentSemester: "Fall 2026",
     });
+
+    // Load app preferences from localStorage
+    const savedHighContrast = localStorage.getItem("highContrast") === "true";
+    const savedLargerText = localStorage.getItem("largerText") === "true";
+
+    setHighContrast(savedHighContrast);
+    setLargerText(savedLargerText);
+
+    // Apply preferences to document
+    if (savedHighContrast) {
+      document.body.classList.add("high-contrast");
+    }
+    if (savedLargerText) {
+      document.body.classList.add("larger-text");
+    }
   }, []);
+
+  // Handle high contrast toggle
+  useEffect(() => {
+    localStorage.setItem("highContrast", highContrast);
+    if (highContrast) {
+      document.body.classList.add("high-contrast");
+    } else {
+      document.body.classList.remove("high-contrast");
+    }
+  }, [highContrast]);
+
+  // Handle larger text toggle
+  useEffect(() => {
+    localStorage.setItem("largerText", largerText);
+    if (largerText) {
+      document.body.classList.add("larger-text");
+    } else {
+      document.body.classList.remove("larger-text");
+    }
+  }, [largerText]);
 
   const handleChangePassword = () => {
     navigate("/forgot-password");
